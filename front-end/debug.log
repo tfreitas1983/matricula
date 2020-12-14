@@ -1,0 +1,7 @@
+[0915/001750.504:ERROR:file_io.cc(135)] WriteFile: O pipe está sendo fechado. (0xE8)
+[0921/180834.469:ERROR:file_io.cc(135)] WriteFile: O pipe está sendo fechado. (0xE8)
+[0921/212232.952:ERROR:process_info.cc(359)] UncheckedAllocate
+[0925/184607.299:ERROR:file_io.cc(135)] WriteFile: O pipe está sendo fechado. (0xE8)
+[1210/222525.563:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1211/222525.569:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1212/222525.583:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
