@@ -1,3 +1,3 @@
 module.exports = {
-    url: "mongodb://localhost:27017/matricula"
+    url: `mongodb://AdminMatricula:${encodeURIComponent('Belfordroxo.2021')}@ec2-54-234-6-202.compute-1.amazonaws.com:27017/?authSource=matricula`
 }
