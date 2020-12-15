@@ -41,6 +41,7 @@ export default class Aluno extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showModeratorBoard: false,
             alunos:[],
             escolas: [],
             turmas: [],
@@ -65,6 +66,12 @@ export default class Aluno extends Component {
         this.pegaAlunos()        
         this.pegaEscolas()
         this.pegaTurmas()
+
+        if (this.state.currentUser) {
+            this.setState({
+              showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR")
+            })
+        }
     }
 
     pegaAlunos(page = 1) {
@@ -458,7 +465,7 @@ export default class Aluno extends Component {
 
     render () {
         const {alunos, escolas, turmas, className, buscaCPF, buscaNome, buscaDtNascimento, buscaEscola,
-            buscaStatus, buscaSerie, buscaTurno, buscaTurma} = this.state
+            buscaStatus, buscaSerie, buscaTurno, buscaTurma, showModeratorBoard} = this.state
 
         let mostrar = null
 
@@ -529,149 +536,146 @@ export default class Aluno extends Component {
             })
         }     
            
-
-        return (
-            <div style={{marginTop: 5+'%'}}>
+ 
+        return ( 
+            <div style={{marginTop: 5+'%'}}>               
                 <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 1+'%'}}>
-                    <h1>Lista de Alunos(as)</h1>
-                    <Link to={"/alunos/adicionar"} className="btn btn-success">
-                        Cadastrar
-                    </Link>
+                    {showModeratorBoard && (
                     <div>
-                        <button type="button" onClick={this.toggleFiltro} className="btn btn-info">
-                            {this.state.mostraFiltro ?  'Filtros': 'Esconder' }
-                        </button>
-                    </div>
-                </div>
+                        <h1>Lista de Alunos(as)</h1>
+                        <Link to={"/alunos/adicionar"} className="btn btn-success">
+                            Cadastrar
+                        </Link>
+                        <div>
+                            <button type="button" onClick={this.toggleFiltro} className="btn btn-info">
+                                {this.state.mostraFiltro ?  'Filtros': 'Esconder' }
+                            </button>
+                        </div>                   
 
-                <div className={className}>
-                    <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', marginTop: 15+'px'}}>                        
-                        <input type="text" pattern="[a-zA-Z]*" className="form-control" placeholder="Busque pelo nome" onChange={this.handlerBuscaNome} onKeyUp={this.buscarNome} ref={el => this.inputNome = el}/>
-                        <input type="number" min="1" className="form-control" placeholder="Busque pelo CPF do responsável" onChange={this.handlerBuscaCPF} onKeyUp={this.buscarCPF} ref={el => this.inputCPF = el}/>                        
-                        <input type="date" className="form-control" placeholder="Busque pela Data" onChange={this.handlerBuscaDtNascimento} onKeyUp={this.buscarDtNascimento} ref={el => this.inputData = el} />
-                                               
-                        <select 
-                            className="form-control" 
-                            id="status" 
-                            name="status"                        
-                            value={buscaStatus}                                    
-                            onChange={this.handlerBuscaStatus} > 
-                            <option value="" disabled> --- Filtre por status --- </option>                                
-                            <option value="Aprovado"> Aprovado(a) </option>
-                            <option value="Em análise"> Em análise </option>  
-                            <option value="Reprovado"> Reprovado(a) </option> 
-                        </select>
-                        
-                    </div> 
-                    <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', marginTop: 15+'px'}}>                        
-                        <select 
-                            className="form-control" 
-                            id="escola" 
-                            name="escola"                        
-                            value={buscaEscola}                                    
-                            onChange={this.handlerBuscaEscola}
-                            ref={el => this.inputEscola = el} >                              
-                            <option value="" disabled> --- Selecione a escola --- </option>
-                            {listaEscolas}
-                        </select>
-                        <select 
-                            className="form-control" 
-                            id="serie" 
-                            name="serie"                        
-                            value={buscaSerie}                                    
-                            onChange={this.handlerBuscaSerie}
-                            ref={el => this.inputserie = el} >                              
-                            <option value="" disabled> --- Selecione a série --- </option>
-                            <option value="Creche I"> Creche I </option>
-                            <option value="Creche II"> Creche II </option>
-                            <option value="Creche III"> Creche III </option>
-                            <option value="Pré IV"> Pré IV </option>
-                            <option value="Pré V"> Pré V </option>
-                            <option value="1º ano"> 1º ano </option>
-                            <option value="2º ano"> 2º ano </option>
-                            <option value="3º ano"> 3º ano </option>
-                            <option value="4º ano"> 4º ano </option>
-                            <option value="5º ano"> 5º ano </option>
-                            <option value="6º ano"> 6º ano </option>
-                            <option value="7º ano"> 7º ano </option>
-                            <option value="8º ano"> 8º ano </option>
-                            <option value="9º ano"> 9º ano </option>
-                        </select>
-                        <select 
-                            className="form-control" 
-                            id="turno" 
-                            name="turno"                        
-                            value={buscaTurno}                                    
-                            onChange={this.handlerBuscaTurno}
-                            ref={el => this.inputTurno = el} >                              
-                            <option value="" disabled> --- Selecione o turno --- </option>
-                            <option value="1º Período"> 1º Período</option>
-                            <option value="2º Período"> 2º Período</option>
-                            <option value="3º Período"> 3º Período</option>                  
-                            <option value="Intermediário"> Intermediário</option> 
-                        </select>
-                        <select 
-                            className="form-control" 
-                            id="turma" 
-                            name="turma"                        
-                            value={buscaTurma}                                    
-                            onChange={this.handlerBuscaTurma}
-                            ref={el => this.inputTurma = el} >                              
-                            <option value="" disabled> --- Selecione a turma --- </option>
-                            {listaTurmas}
-                        </select>
-                        <button type="button" className="btn btn-danger" onClick={this.limpaCurrent}>
-                            Limpar
-                        </button>
-                        <button type="button" className="btn btn-info" onClick={this.buscarMultiplo}>
-                            Buscar
-                        </button>
+                    <div className={className}>
+                        <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', marginTop: 15+'px'}}>                        
+                            <input type="text" pattern="[a-zA-Z]*" className="form-control" placeholder="Busque pelo nome" onChange={this.handlerBuscaNome} onKeyUp={this.buscarNome} ref={el => this.inputNome = el}/>
+                            <input type="number" min="1" className="form-control" placeholder="Busque pelo CPF do responsável" onChange={this.handlerBuscaCPF} onKeyUp={this.buscarCPF} ref={el => this.inputCPF = el}/>                        
+                            <input type="date" className="form-control" placeholder="Busque pela Data" onChange={this.handlerBuscaDtNascimento} onKeyUp={this.buscarDtNascimento} ref={el => this.inputData = el} />
+                                                
+                            <select 
+                                className="form-control" 
+                                id="status" 
+                                name="status"                        
+                                value={buscaStatus}                                    
+                                onChange={this.handlerBuscaStatus} > 
+                                <option value="" disabled> --- Filtre por status --- </option>                                
+                                <option value="Aprovado"> Aprovado(a) </option>
+                                <option value="Em análise"> Em análise </option>  
+                                <option value="Reprovado"> Reprovado(a) </option> 
+                            </select>
+                            
+                        </div> 
+                        <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', marginTop: 15+'px'}}>                        
+                            <select 
+                                className="form-control" 
+                                id="escola" 
+                                name="escola"                        
+                                value={buscaEscola}                                    
+                                onChange={this.handlerBuscaEscola}
+                                ref={el => this.inputEscola = el} >                              
+                                <option value="" disabled> --- Selecione a escola --- </option>
+                                {listaEscolas}
+                            </select>
+                            <select 
+                                className="form-control" 
+                                id="serie" 
+                                name="serie"                        
+                                value={buscaSerie}                                    
+                                onChange={this.handlerBuscaSerie}
+                                ref={el => this.inputserie = el} >                              
+                                <option value="" disabled> --- Selecione a série --- </option>
+                                <option value="Creche I"> Creche I </option>
+                                <option value="Creche II"> Creche II </option>
+                                <option value="Creche III"> Creche III </option>
+                                <option value="Pré IV"> Pré IV </option>
+                                <option value="Pré V"> Pré V </option>
+                                <option value="1º ano"> 1º ano </option>
+                                <option value="2º ano"> 2º ano </option>
+                                <option value="3º ano"> 3º ano </option>
+                                <option value="4º ano"> 4º ano </option>
+                                <option value="5º ano"> 5º ano </option>
+                                <option value="6º ano"> 6º ano </option>
+                                <option value="7º ano"> 7º ano </option>
+                                <option value="8º ano"> 8º ano </option>
+                                <option value="9º ano"> 9º ano </option>
+                            </select>
+                            <select 
+                                className="form-control" 
+                                id="turno" 
+                                name="turno"                        
+                                value={buscaTurno}                                    
+                                onChange={this.handlerBuscaTurno}
+                                ref={el => this.inputTurno = el} >                              
+                                <option value="" disabled> --- Selecione o turno --- </option>
+                                <option value="1º Período"> 1º Período</option>
+                                <option value="2º Período"> 2º Período</option>
+                                <option value="3º Período"> 3º Período</option>                  
+                                <option value="Intermediário"> Intermediário</option> 
+                            </select>
+                            <select 
+                                className="form-control" 
+                                id="turma" 
+                                name="turma"                        
+                                value={buscaTurma}                                    
+                                onChange={this.handlerBuscaTurma}
+                                ref={el => this.inputTurma = el} >                              
+                                <option value="" disabled> --- Selecione a turma --- </option>
+                                {listaTurmas}
+                            </select>
+                            <button type="button" className="btn btn-danger" onClick={this.limpaCurrent}>
+                                Limpar
+                            </button>
+                            <button type="button" className="btn btn-info" onClick={this.buscarMultiplo}>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>   
+                
+                
+                    <div className="list-group">
+                        <table className="tabela">
+                            <tbody>
+                                <tr className="bordalinha">                                
+                                    <th>Nome</th>
+                                    <th>Dt Nascimento</th>                                
+                                    <th>Escola</th>
+                                    <th>Série</th>
+                                    <th>Turno</th>
+                                    <th>Turma</th>                                
+                                    <th>Dt Solicitado</th>                                
+                                    <th>Status</th>
+                                    <th>Ações</th>                            
+                                </tr>
+                                {mostrar}
+                                {/*alunos.map((aluno, index) => (
+                                    <tr key={index} className="bordalinha">
+                                        <td style={{width: 35+'%'}}>{aluno.nome}</td>                                
+                                        <td style={{width: 10+'%'}}>{moment(aluno.dtnascimento).format('DD/MM/YYYY')}</td>
+                                        <td style={{width: 10+'%'}}>{aluno.matricula}</td>                                    
+                                        <td style={{width: 15+'%'}}>{aluno.escola}</td>                                    
+                                        <td style={{width: 10+'%'}}>{aluno.serie}</td>                                    
+                                        <td style={{width: 10+'%'}}>{aluno.turno}</td>                                    
+                                        <td style={{width: 10+'%'}}>
+                                            <IconContext.Provider value={{ size: "2em", className: "global-class-name" }}>
+                                                {<Link to={`/alunos/visualizar/${aluno.id}`} id="view" style={{textDecoration: 'none'}}> <FaEye /> </Link>}
+                                                {<Link to={`/alunos/editar/${aluno.id}`} id="edit"> <FaEdit /> </Link>}
+                                                {<Link to={`/alunos/editar/${aluno.id}`} id="edit"> <FaPowerOff /> </Link>}
+                                            </IconContext.Provider>
+                                        </td>                                
+                                    </tr> 
+                                ))*/}
+                            </tbody>
+                        </table>
                     </div>
-                </div>   
-                
-                
-                <div className="list-group">
-                    <table className="tabela">
-                        <tbody>
-                            <tr className="bordalinha">                                
-                                <th>Nome</th>
-                                <th>Dt Nascimento</th>                                
-                                <th>Escola</th>
-                                <th>Série</th>
-                                <th>Turno</th>
-                                <th>Turma</th>                                
-                                <th>Dt Solicitado</th>                                
-                                <th>Status</th>
-                                <th>Ações</th>                            
-                            </tr>
-                            {mostrar}
-                            {/*alunos.map((aluno, index) => (
-                                <tr key={index} className="bordalinha">
-                                    <td style={{width: 35+'%'}}>{aluno.nome}</td>                                
-                                    <td style={{width: 10+'%'}}>{moment(aluno.dtnascimento).format('DD/MM/YYYY')}</td>
-                                    <td style={{width: 10+'%'}}>{aluno.matricula}</td>                                    
-                                    <td style={{width: 15+'%'}}>{aluno.escola}</td>                                    
-                                    <td style={{width: 10+'%'}}>{aluno.serie}</td>                                    
-                                    <td style={{width: 10+'%'}}>{aluno.turno}</td>                                    
-                                    <td style={{width: 10+'%'}}>
-                                        <IconContext.Provider value={{ size: "2em", className: "global-class-name" }}>
-                                            {<Link to={`/alunos/visualizar/${aluno.id}`} id="view" style={{textDecoration: 'none'}}> <FaEye /> </Link>}
-                                            {<Link to={`/alunos/editar/${aluno.id}`} id="edit"> <FaEdit /> </Link>}
-                                            {<Link to={`/alunos/editar/${aluno.id}`} id="edit"> <FaPowerOff /> </Link>}
-                                        </IconContext.Provider>
-                                    </td>                                
-                                </tr> 
-                            ))*/}
-                        </tbody>
-                    </table>
+                    </div>)}
                 </div>
             </div>
         )
     }
-
-
-
-
-
-
 }

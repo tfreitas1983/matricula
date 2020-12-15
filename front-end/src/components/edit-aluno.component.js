@@ -94,6 +94,7 @@ export default class EditarAluno extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showModeratorBoard: false,
             escolas: [],
             turmas: [],
             message: "",  
@@ -172,7 +173,14 @@ export default class EditarAluno extends Component {
     componentDidMount() {
         this.pegaEscolas()
         this.pegaTurmas()
-        this.buscaAluno(this.props.match.params.id) 
+        this.buscaAluno(this.props.match.params.id)
+        
+        
+    if (this.state.currentUser) {
+        this.setState({
+          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR")
+        })
+      }
     }
 
     async buscaAluno(id) {
@@ -1687,7 +1695,7 @@ export default class EditarAluno extends Component {
 
 
     render () {
-        const {current, distancias, currentIndex,currentTurma, currentIndexTurma, escolas, turmas} = this.state
+        const {showModeratorBoard, current, distancias, currentIndex,currentTurma, currentIndexTurma, escolas, turmas} = this.state
 
         let mostrarOpcoes = null
         let serie = null
@@ -2145,6 +2153,8 @@ export default class EditarAluno extends Component {
         return (
 
             <div style={{marginTop: 5+'%'}}>
+                {showModeratorBoard && (
+                    <div>
                 <h1> Alterar Aluno</h1>
                 { current ? (
                     <div>
@@ -2595,6 +2605,8 @@ export default class EditarAluno extends Component {
                         <br />
                         <p>Selecione um(a) aluno(a)...</p>
                     </div>
+                )}
+                </div>
                 )}
             </div>
         )

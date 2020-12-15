@@ -4,8 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator"
 import EscolaDataService from "../services/escola.service"
-
-import AuthService from "../services/auth.service";
+import AuthService from "../services/auth.service"
 
 const required = value => {
   if (!value) {
@@ -70,6 +69,9 @@ export default class Register extends Component {
     this.pegaEscolas = this.pegaEscolas.bind(this)
 
     this.state = {
+      currentUser: AuthService.getCurrentUser(),
+      showModeratorBoard: false,
+      showAdminBoard: false,
       username: "",
       email: "",
       password: "",
@@ -84,7 +86,14 @@ export default class Register extends Component {
   }
 
   componentDidMount() {
-    this.pegaEscolas()        
+    this.pegaEscolas() 
+    
+    if (this.state.currentUser) {
+      this.setState({
+        showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+        showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+      })
+    }
 }
 
   pegaEscolas(page = 1) {        
@@ -185,7 +194,7 @@ export default class Register extends Component {
 
   render() {
 
-    const {escolas} = this.state
+    const {escolas, showModeratorBoard} = this.state
     
 
     let listaescola = null
@@ -214,7 +223,10 @@ export default class Register extends Component {
     }
    
     return (
+
+      
       <div className="col-md-12" style={{marginTop: 6+'%'}}>
+        {showModeratorBoard && (
         <div className="card card-container">
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -311,7 +323,8 @@ export default class Register extends Component {
             />
           </Form>
         </div>
+        )}
       </div>
-    );
+    )
   }
 }

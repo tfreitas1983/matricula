@@ -12,6 +12,7 @@ export default class VisualizarAluno extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showModeratorBoard: false,
             current: {
                 id: null,
                 username: "",
@@ -68,6 +69,13 @@ export default class VisualizarAluno extends Component {
 
     componentDidMount(){
         this.buscarAluno(this.props.match.params.id)
+
+        
+    if (this.state.currentUser) {
+        this.setState({
+          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR")
+        })
+      }
     }
 
     buscarAluno(id) {
@@ -136,65 +144,9 @@ export default class VisualizarAluno extends Component {
 
     render() {
 
-        const {current} = this.state
+        const {current, showModeratorBoard } = this.state
 
-      /*  let auditiva = null
-        let autismo = null
-        let down = null
-        let fala = null
-        let mental = null
-        let motora = null
-        let visual = null
-        let outra = null
-
-        if (current.auditiva === true) {
-            auditiva = <div>
-                <label>Auditiva</label>
-            </div>
-        }
-
-        if (current.autismo === true) {
-            autismo = <div>
-                <label>Autismo</label>
-            </div>
-        }
-
-        if (current.fala === true) {
-            fala = <div>
-                <label>Fala</label>
-            </div>
-        }
-
-        if (current.mental === true) {
-            mental = <div>
-                <label>Mental</label>
-            </div>
-        }
-
-        if (current.motora === true) {
-            motora = <div>
-                <label>Motora</label>
-            </div>
-        }
-
-        if (current.down === true) {
-            down = <div>
-                <label>Síndrome de Down</label>
-            </div>
-        }
-
-        if (current.visual === true) {
-            visual = <div>
-                <label>Visual</label>
-            </div>
-        }
-
-        if (current.chkOutra === true) {
-            outra = <div>
-                <label>Outra: {current.outra}</label>
-            </div>
-        }
-*/
+      
         let deficiencias = null
         let outraDeficiencia = null
         if (current.chkOutra === true) {
@@ -266,6 +218,8 @@ export default class VisualizarAluno extends Component {
                 ) : (
                     
                     <div style={{margin: 5 + '%'}}>
+                        {showModeratorBoard && (
+                        <div>
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <strong> DADOS DO RESPONSÁVEL </strong>
@@ -683,6 +637,7 @@ export default class VisualizarAluno extends Component {
                         </div>
                     </div>
                 )}
+                </div>)}
             </div>
         )
     }

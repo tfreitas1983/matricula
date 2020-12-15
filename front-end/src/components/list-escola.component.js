@@ -21,13 +21,23 @@ export default class Escola extends Component {
             current: null,
             currentIndex: -1,
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             selectedPage: null,
             buscaDescricao: "",
         }
     }
 
     componentDidMount() {
-        this.pegaEscolas()        
+        this.pegaEscolas() 
+        
+        
+    if (this.state.currentUser) {
+        this.setState({
+          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+          showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+        })
+      }
     }
 
     pegaEscolas(page = 1) {        
@@ -78,10 +88,12 @@ export default class Escola extends Component {
 
     render() {
 
-        const {escolas} = this.state
+        const {escolas, showAdminBoard, showModeratorBoard} = this.state
 
         return (
             <div style={{margin: 60 + 'px'}}>
+                {showAdminBoard || showModeratorBoard && (
+                    <div>
                 <h1 style={{marginLeft: 1 + '%'}}>Lista de Escolas</h1>
                 <Link to={"/escolas/adicionar"} className="btn btn-success" style={{width: 10+'%', margin: 1+'%'}}> Cadastrar </Link>
 
@@ -111,6 +123,7 @@ export default class Escola extends Component {
                         </tbody>
                     </table>
                 </div>
+                </div>)}
             </div>
         )
     }

@@ -153,16 +153,17 @@ class App extends Component {
                     Cursos
                   </Link>
               </li> */}
-                <li className="nav-item">
-                    <Link to={"/solicitacoes"} className="nav-link">
-                      Solicitações de candidatos
-                    </Link>
-                </li>
+                
               </div>
               )}
 
               {currentUser && (
                 <div>
+                  <li className="nav-item">
+                    <Link to={"/solicitacoes"} className="nav-link">
+                      Solicitações de candidatos
+                    </Link>
+                </li>
                 </div>
               )}
             </div>
@@ -221,10 +222,10 @@ class App extends Component {
               <Route exact path="/turmas/editar/:id" component={EditarTurma} />             
               <Route exact path="/turmas/visualizar/:id" component={VisualizarTurma} /> 
               <Route exact path="/solicitacoes" component={Solicitacoes} />
-              <Route exact path="/cursos" component={Curso} />
+              {/* <Route exact path="/cursos" component={Curso} />
               <Route exact path="/cursos/adicionar" component={AdicionarCurso} />
               <Route exact path="/cursos/editar/:id" component={EditarCurso} />             
-              <Route exact path="/cursos/visualizar/:id" component={VisualizarCurso} />             
+              <Route exact path="/cursos/visualizar/:id" component={VisualizarCurso} />  */}            
             </Switch>
           </div>
       </Router>

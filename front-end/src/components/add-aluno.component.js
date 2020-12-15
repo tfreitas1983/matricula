@@ -99,6 +99,7 @@ export default class AdicionarAluno extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showModeratorBoard: false,
             escolas: [],
             turmas: [],
             ceps: [],
@@ -172,6 +173,13 @@ export default class AdicionarAluno extends Component {
     componentDidMount() {
         this.pegaEscolas()
         this.pegaTurmas()
+
+        
+    if (this.state.currentUser) {
+        this.setState({
+          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR")
+        })
+      }
     }
     
 
@@ -1344,7 +1352,7 @@ export default class AdicionarAluno extends Component {
 
     render() {
 
-        const {distancias, lat, long, currentIndex} = this.state
+        const {distancias, lat, long, currentIndex, showModeratorBoard} = this.state
 
         let mostrarOpcoes = null
         let serie = null
@@ -1717,6 +1725,7 @@ export default class AdicionarAluno extends Component {
 
         return (
             <div>
+                
                 { this.state.submitted ? (
                     <div style={{marginTop: 10+'%'}}>
                         <h4> Cadastrado com sucesso!</h4>
@@ -1727,6 +1736,8 @@ export default class AdicionarAluno extends Component {
                     </div>
                 ) : (
                     <div>
+                        {showModeratorBoard && ( 
+                        <div>       
                         <Accordion defaultActiveKey="0">
                             <Card>
                                 <Card.Header>
@@ -2099,9 +2110,7 @@ export default class AdicionarAluno extends Component {
                                 <Accordion.Collapse eventKey="2">
                                     <Card.Body>
                                         <div>
-                                            {serie}  
-
-                                            
+                                            {serie}
                                             
                                             <div className="col-md-6" style={{display: 'flex', justifyContent: 'flex-end'}}>
                                                 <button type="button" className="btn btn-info" style={{backgroundColor: 'rgb(226, 88, 34)'}} onClick={this.buscarEscolas}>
@@ -2113,8 +2122,9 @@ export default class AdicionarAluno extends Component {
                                 </Accordion.Collapse>
                             </Card>
                         </Accordion>
-                        {mostrarOpcoes}
-
+                        <div>
+                            {mostrarOpcoes}
+                        </div>
                         <div className="row">
                             <div className="col-md-12" style={{display:'flex', justifyContent: 'space-evenly'}}>
                                 <button type="submit" className="btn btn-success" onClick={this.calculaPontos} style={{width: 20+'%'}}>
@@ -2125,6 +2135,8 @@ export default class AdicionarAluno extends Component {
                                 </Link>
                             </div>                                                                       
                         </div>
+                        </div>
+                        )}
                     </div>
                 )}                          
             </div>
