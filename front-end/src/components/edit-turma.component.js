@@ -41,6 +41,8 @@ export default class Turma extends Component {
         
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             message: "",
             voltar: "",
             escolas: [],
@@ -82,6 +84,13 @@ export default class Turma extends Component {
     componentDidMount() {
         this.buscarTurma(this.props.match.params.id)
         this.pegaEscolas()
+
+        if (this.state.currentUser) {
+            this.setState({
+            showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+            showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+        }
        // this.pegaCursos()
     }
 
@@ -488,7 +497,7 @@ export default class Turma extends Component {
     }
 
     render () {
-        const {current, voltar, escolas /*cursos*/} = this.state
+        const {current, voltar, escolas, showAdminBoard, showModeratorBoard /*cursos*/} = this.state
 
         let botao = null
 
@@ -689,8 +698,10 @@ export default class Turma extends Component {
 */
         return (
             <div style={{margin: 5 + '%'}}>
-            { current ? (
-                <div>
+                {(showAdminBoard || showModeratorBoard) && (
+                    <div>
+                     { current ? (
+                        <div>
                     <div style={{margin: 5 + '%'}}>
                         <div className="row">
                             <div className="col-md-6" style={{padding: 0}}>
@@ -834,7 +845,8 @@ export default class Turma extends Component {
                         <p>Selecione uma turma...</p>
                     </div>
                 )
-            }                           
+                } 
+                </div>)}                          
             </div>            
         )
     }

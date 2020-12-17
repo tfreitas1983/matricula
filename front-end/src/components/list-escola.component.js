@@ -32,12 +32,12 @@ export default class Escola extends Component {
         this.pegaEscolas() 
         
         
-    if (this.state.currentUser) {
-        this.setState({
-          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
-          showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
-        })
-      }
+        if (this.state.currentUser) {
+            this.setState({
+            showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+            showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+        }
     }
 
     pegaEscolas(page = 1) {        
@@ -92,7 +92,7 @@ export default class Escola extends Component {
 
         return (
             <div style={{margin: 60 + 'px'}}>
-                {showAdminBoard || showModeratorBoard && (
+                {(showAdminBoard || showModeratorBoard) && (
                     <div>
                 <h1 style={{marginLeft: 1 + '%'}}>Lista de Escolas</h1>
                 <Link to={"/escolas/adicionar"} className="btn btn-success" style={{width: 10+'%', margin: 1+'%'}}> Cadastrar </Link>

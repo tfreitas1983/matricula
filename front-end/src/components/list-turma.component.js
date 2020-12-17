@@ -19,7 +19,9 @@ export default class Turma extends Component {
             page: 1,
             current: null,
             currentIndex: -1,
-            currentUser: AuthService.getCurrentUser(),
+            currentUser: AuthService.getCurrentUser(),            
+            showAdminBoard: false,
+            showModeratorBoard: false,
             selectedPage: null,
             buscaDescricao: "",
         }
@@ -27,6 +29,13 @@ export default class Turma extends Component {
 
     componentDidMount() {
         this.pegaTurmas()        
+
+        if (this.state.currentUser) {
+            this.setState({
+              showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+              showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+        }
     }
 
     pegaTurmas(page = 1) {        
@@ -71,10 +80,12 @@ export default class Turma extends Component {
 
     render() {
 
-        const {turmas} = this.state
+        const {turmas, showAdminBoard, showModeratorBoard} = this.state
 
         return (
             <div style={{margin: 60 + 'px'}}>
+                {(showAdminBoard || showModeratorBoard) && (
+                    <div>
                 <h1 style={{marginLeft: 1 + '%'}}>Lista de Turmas</h1>
                 <Link to={"/turmas/adicionar"} className="btn btn-success" style={{width: 10+'%', margin: 1+'%'}}> Cadastrar </Link>
 
@@ -114,6 +125,7 @@ export default class Turma extends Component {
                         </tbody>
                     </table>
                 </div>
+                </div>)}
             </div>
         )
     }

@@ -8,7 +8,7 @@ import axios from 'axios'
 //import * as moment from 'moment'
 import {cnpjMask} from './cnpjMask'
 import {cepMask} from './cepMask'
-import {telMask, celMask} from './telMask'
+import {telMask} from './telMask'
 
 export default class AdicionarEscola extends Component {
     constructor(props) {
@@ -64,6 +64,8 @@ export default class AdicionarEscola extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             descricao: "",
             cnpj: "",
             inep: "",
@@ -110,7 +112,14 @@ export default class AdicionarEscola extends Component {
     }
 
     componentDidMount() {
-        this.pegaSubPrefeituras()        
+        this.pegaSubPrefeituras()   
+        
+        if (this.state.currentUser) {
+            this.setState({
+              showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+              showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+          }
     }
 
     pegaSubPrefeituras (page = 1) {        
@@ -586,7 +595,7 @@ export default class AdicionarEscola extends Component {
 
     render() {
 
-        const {subprefeituras} = this.state
+        const {subprefeituras,  showAdminBoard, showModeratorBoard} = this.state
 
         let listasub = null
         let lista = subprefeituras.map((item, index) => ( 
@@ -679,7 +688,8 @@ export default class AdicionarEscola extends Component {
                 ) : (
                 
                     <div style={{margin: 5 + '%'}}>
-
+                        {(showAdminBoard || showModeratorBoard) && (
+                        <div>    
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -938,6 +948,7 @@ export default class AdicionarEscola extends Component {
                         <button onClick={this.salvarEscola} className="btn btn-success">
                             Adicionar
                         </button>
+                        </div>)}
                     </div>
                 )}
             </div>

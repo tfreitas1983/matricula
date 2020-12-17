@@ -11,7 +11,9 @@ export default class VisualizarEscola extends Component {
        
 
         this.state = {
-            currentUser: AuthService.getCurrentUser(),            
+            currentUser: AuthService.getCurrentUser(), 
+            showAdminBoard: false,
+            showModeratorBoard: false,           
             current: {
                 id: null,
                 descricao: "",
@@ -48,7 +50,15 @@ export default class VisualizarEscola extends Component {
     }
 
     componentDidMount() {
-        this.buscarEscola(this.props.match.params.id)      
+        this.buscarEscola(this.props.match.params.id)
+        
+            
+    if (this.state.currentUser) {
+        this.setState({
+          showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+          showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+        })
+      }
     }
 
     buscarEscola(id) {
@@ -100,7 +110,7 @@ export default class VisualizarEscola extends Component {
 
     render() {
 
-        const {current} = this.state
+        const {current, showAdminBoard, showModeratorBoard} = this.state
 
         let auditiva = null
         let autismo = null
@@ -207,6 +217,9 @@ export default class VisualizarEscola extends Component {
                 ) : (
                 
                     <div style={{margin: 5 + '%'}}>
+
+                        {(showAdminBoard || showModeratorBoard) && (
+                        <div>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -424,6 +437,7 @@ export default class VisualizarEscola extends Component {
                                 Voltar
                             </Link>
                         </div>
+                        </div>)}
                     </div>
                 )}
             </div>

@@ -11,6 +11,8 @@ export default class VisualizarTurma extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             current: {
                 id: null,
                 descricao: "",
@@ -36,6 +38,13 @@ export default class VisualizarTurma extends Component {
 
     componentDidMount() {
         this.buscarTurma(this.props.match.params.id)
+
+        if (this.state.currentUser) {
+            this.setState({
+            showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+            showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+        }
     }
 
     buscarTurma(id) {
@@ -79,7 +88,7 @@ export default class VisualizarTurma extends Component {
 
     render() {
 
-        const {current} = this.state
+        const {current, showAdminBoard, showModeratorBoard } = this.state
 
         let auditiva = null
         let autismo = null
@@ -208,6 +217,8 @@ export default class VisualizarTurma extends Component {
                 ) : (
                 
                     <div style={{margin: 5 + '%'}}>
+                        {(showAdminBoard || showModeratorBoard) && (
+                        <div>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -312,6 +323,7 @@ export default class VisualizarTurma extends Component {
                                 Voltar
                             </Link>
                         </div>
+                        </div>)}
                     </div>
                 )}
             </div>

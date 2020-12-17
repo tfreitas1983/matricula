@@ -17,7 +17,10 @@ export default class GestaoAluno extends Component {
         
 
         this.state = {
-            currentUser: AuthService.getCurrentUser(),            
+            currentUser: AuthService.getCurrentUser(),     
+            showAdminBoard: false,
+            showModeratorBoard: false, 
+            showUserBoard: false,                
             message: "",
             msg: "",            
             current: {
@@ -77,9 +80,16 @@ export default class GestaoAluno extends Component {
         }
     }
 
-    componentDidMount() {
-        
+    componentDidMount() {        
         this.buscaAluno(this.props.match.params.id) 
+
+        if (this.state.currentUser) {
+            this.setState({
+            showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+            showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN"),
+            showUserBoard: this.state.currentUser.roles.includes("ROLE_USER")
+            })
+        }
     }
 
     buscaAluno(id) {
@@ -312,10 +322,12 @@ export default class GestaoAluno extends Component {
 
     render () {
 
-        const {current} = this.state
+        const {current, showAdminBoard, showModeratorBoard,showUserBoard} = this.state
 
         return (
             <div style={{margin: 5+'%'}}>
+                {(showAdminBoard || showModeratorBoard || showUserBoard ) && (
+                <div>
                 <h3>Gestão de alunos</h3>
                 <div className="row">
                     <div className="col-md-6">                          
@@ -461,6 +473,7 @@ export default class GestaoAluno extends Component {
                     </div>                                                                       
                 </div>
                 <h1 style={{marginBottom: 2+'%'}}> {this.state.message} </h1>
+                </div>)}
             </div>
         )
     }

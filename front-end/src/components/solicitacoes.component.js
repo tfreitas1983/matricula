@@ -42,7 +42,10 @@ export default class Solicitacoes extends Component {
         
 
         this.state = {
-            currentUser: AuthService.getCurrentUser(),
+            currentUser: AuthService.getCurrentUser(),                 
+            showAdminBoard: false,
+            showModeratorBoard: false, 
+            showUserBoard: false,
             alunos:[],
             escolas: [],
             turmas: [],
@@ -67,6 +70,14 @@ export default class Solicitacoes extends Component {
         this.pegaAlunos()
         this.pegaEscolas()
         this.pegaTurmas()
+
+        if (this.state.currentUser) {
+            this.setState({
+            showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+            showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN"),
+            showUserBoard: this.state.currentUser.roles.includes("ROLE_USER")
+            })
+        }
     }
 
     pegaAlunos(page = 1) {
@@ -459,7 +470,7 @@ export default class Solicitacoes extends Component {
 
     render () {
         const {alunos, escolas, turmas, className, buscaCPF, buscaNome, buscaDtNascimento, buscaEscola,
-             buscaStatus, buscaSerie, buscaTurno, buscaTurma} = this.state
+             buscaStatus, buscaSerie, buscaTurno, buscaTurma, showAdminBoard, showModeratorBoard,showUserBoard } = this.state
 
         let mostrar = null
 
@@ -536,6 +547,8 @@ export default class Solicitacoes extends Component {
 
         return (
             <div style={{marginTop: 5+'%'}}>
+                {(showAdminBoard || showModeratorBoard || showUserBoard ) && (
+                <div>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 1+'%'}}>
                     <h1> Solicitações </h1>
                     <div>
@@ -649,7 +662,7 @@ export default class Solicitacoes extends Component {
                         </tbody>
                     </table>
                 </div>
-                
+                </div>)}
             </div>
         )
     }

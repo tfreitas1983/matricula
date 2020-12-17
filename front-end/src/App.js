@@ -30,11 +30,6 @@ import VisualizarTurma from "./components/view-turma.component"
 
 import Solicitacoes from "./components/solicitacoes.component"
 
-import Curso from "./components/list-curso.component.js"
-import AdicionarCurso from "./components/add-curso.component.js"
-import EditarCurso from "./components/edit-curso.component.js"
-import VisualizarCurso from "./components/view-curso.component"
-
 import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
@@ -117,13 +112,9 @@ class App extends Component {
                       <Link to={"/cursos"} className="nav-link">
                         Cursos
                       </Link>
-                    </li> */}
+                    </li> 
+                    
                     <li className="nav-item">
-                      <Link to={"/solicitacoes"} className="nav-link">
-                        Solicitações de candidatos
-                      </Link>
-                    </li>
-                    {/*<li className="nav-item">
                       <Link to={"/user"} className="nav-link">
                         Candidatos aprovados
                       </Link>

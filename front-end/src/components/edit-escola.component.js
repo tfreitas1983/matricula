@@ -61,6 +61,8 @@ export default class EditarEscola extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             message: "",
             subprefeituras: [],
             ceps: [],            
@@ -112,6 +114,13 @@ export default class EditarEscola extends Component {
     componentDidMount() {
         this.buscarEscola(this.props.match.params.id)
         this.pegaSubPrefeituras() 
+
+        if (this.state.currentUser) {
+            this.setState({
+              showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+              showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+          }
     }
 
     buscarEscola(id) {
@@ -702,7 +711,7 @@ export default class EditarEscola extends Component {
 
     render () {
 
-        const {current, subprefeituras} = this.state
+        const {current, subprefeituras, showAdminBoard, showModeratorBoard} = this.state
 
         
         let listasub = null
@@ -785,6 +794,8 @@ export default class EditarEscola extends Component {
 
         return (
             <div style={{margin: 5 + '%'}}>
+                {(showAdminBoard || showModeratorBoard) && (
+                    <div>
                 { current ? (
                     <div>
                         <div className="row">
@@ -1059,7 +1070,8 @@ export default class EditarEscola extends Component {
                      <br />
                     <p>Selecione uma escola...</p>
                 </div>
-                )}                           
+                )}
+                </div>)}                           
             </div>
         )
     }

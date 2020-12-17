@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
-import EscolaDataService from "../services/escola.service"
 
 import AuthService from "../services/auth.service"
 
@@ -31,27 +30,7 @@ export default class Login extends Component {
     };
   }
 
-    componentDidMount() {
-        this.pegaEscolas()        
-    }
-
-    pegaEscolas(page = 1) {        
-        EscolaDataService.buscarTodos(page)
-        .then(response => {
-        //REST do response da API em duas constantes: 
-        // "docs" com os dados do chamado e "info" com os dados das páginas
-            const { docs, ...info } = response.data 
-            this.setState({
-                escolas: docs,
-                info: info,
-                page: page
-            })                
-        })
-        .catch(e => {
-            console.log(e)
-        })
-    }
-
+   
   onChangeUsername(e) {
     this.setState({
       username: e.target.value

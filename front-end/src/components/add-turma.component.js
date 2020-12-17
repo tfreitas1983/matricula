@@ -39,6 +39,8 @@ export default class AdicionarTurma extends Component {
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
+            showAdminBoard: false,
+            showModeratorBoard: false,
             escolas: [],
            // cursos: [],
            // selectedCurso: "",
@@ -73,6 +75,13 @@ export default class AdicionarTurma extends Component {
     componentDidMount() {
         //this.pegaCursos()        
         this.pegaEscolas()
+
+        if (this.state.currentUser) {
+            this.setState({
+              showModeratorBoard: this.state.currentUser.roles.includes("ROLE_MODERATOR"),
+              showAdminBoard: this.state.currentUser.roles.includes("ROLE_ADMIN")
+            })
+        }
     }
 /*
     pegaCursos(page = 1) {        
@@ -350,7 +359,7 @@ export default class AdicionarTurma extends Component {
 
     render() {
 
-        const {escolas} = this.state
+        const {escolas, showAdminBoard, showModeratorBoard } = this.state
 
         let lista = escolas.map((escola, index)=> (
             <option value={escola.descricao} key={index}>{escola.descricao}</option>
@@ -557,6 +566,8 @@ export default class AdicionarTurma extends Component {
                 ) : (
                 
                     <div style={{margin: 5 + '%'}}>
+                        {(showAdminBoard || showModeratorBoard) && (
+                        <div>
                         <div className="row">
                             <div className="col-md-6" style={{padding: 0}}>
                                 <div className="form-group">
@@ -677,6 +688,8 @@ export default class AdicionarTurma extends Component {
                         <button onClick={this.salvarTurma} className="btn btn-success">
                             Adicionar
                         </button>
+                        </div>)}
+                    
                     </div>
                 )}
             </div>
