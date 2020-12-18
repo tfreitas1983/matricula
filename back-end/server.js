@@ -78,6 +78,7 @@ require("./routes/aluno.routes")(app)
 require("./routes/curso.routes")(app)
 require("./routes/cep.routes")(app)
 require("./routes/subprefeitura.routes")(app)
+require("./routes/usuarios.routes")(app)
 
 // Rotas de login
 require('./routes/auth.routes')(app);

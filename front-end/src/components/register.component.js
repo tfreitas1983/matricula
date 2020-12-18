@@ -35,7 +35,7 @@ const vusername = value => {
     )
   }
 }
-/*
+
 const vnome = value => {
   if (value.length < 6 || value.length > 20) {
     return (
@@ -45,7 +45,7 @@ const vnome = value => {
     )
   }
 }
-*/
+
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -247,6 +247,18 @@ export default class Register extends Component {
                     onChange={this.onChangeUsername}
                     validations={[required, vusername]}
                     autoFocus
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="nome">Nome</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="nome"
+                    value={this.state.nome}
+                    onChange={this.onChangeNome}
+                    validations={[required, vnome]}                    
                   />
                 </div>
 

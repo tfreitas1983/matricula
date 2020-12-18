@@ -7,9 +7,9 @@ import logo from './images/logo.png'
 
 import Dashboard from "./components/dashboard.component.js"
 
-//import Usuario from "./components/list-usuario.component.js"
+import Usuario from "./components/list-usuario.component.js"
 //import AdicionarUsuario from "./components/add-usuario.component.js"
-//import EditarUsuario from "./components/edit-usuario.component.js"
+import EditarUsuario from "./components/edit-usuario.component.js"
 import VisualizarUsuario from "./components/view-usuario.component"
 
 import Escola from "./components/list-escola.component.js"
@@ -89,7 +89,7 @@ class App extends Component {
                       </Link>
                     </li>*/}
                     <li className="nav-item">
-                    <Link to={"/register"} className="nav-link">
+                    <Link to={"/usuarios"} className="nav-link">
                       Usuários
                     </Link>
                     </li>
@@ -178,9 +178,7 @@ class App extends Component {
                   <Link to={"/login"} className="nav-link">
                     Login
                   </Link>
-                </li>
-
-                
+                </li>                
               </div>
             )}              
               
@@ -195,9 +193,9 @@ class App extends Component {
               <Route path="/mod" component={BoardModerator} />
               <Route path="/admin" component={BoardAdmin} />
               <Route exact path={"/dashboard"} component={Dashboard} />   
-              {/*<Route exact path="/usuarios" component={Usuario} /> 
-              <Route exact path="/usuarios/adicionar" component={AdicionarUsuario} />
-              <Route exact path="/usuarios/editar/:id" component={EditarUsuario} /> */}          
+              <Route exact path="/usuarios" component={Usuario} /> 
+              {/*<Route exact path="/usuarios/adicionar" component={AdicionarUsuario} />*/}  
+              <Route exact path="/usuarios/editar/:id" component={EditarUsuario} />         
               <Route exact path="/usuarios/visualizar/:id" component={VisualizarUsuario} /> 
               <Route exact path="/escolas" component={Escola} />
               <Route exact path="/escolas/adicionar" component={AdicionarEscola} />

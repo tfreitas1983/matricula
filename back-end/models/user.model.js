@@ -7,7 +7,8 @@ const User = mongoose.model(
     nome: String,
     email: String,
     password: String,
-    escola: String,   
+    escola: String, 
+    situacao: Boolean,  
     roles: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Role" }
     ]

@@ -538,11 +538,13 @@ export default class Aluno extends Component {
            
  
         return ( 
-            <div style={{marginTop: 5+'%'}}>               
-                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 1+'%'}}>
-                    {showModeratorBoard && (
-                    <div>
-                        <h1>Lista de Alunos(as)</h1>
+            <div style={{marginTop: 5+'%'}}> 
+             {showModeratorBoard && (
+                <div>         
+                    <h1>Lista de Alunos(as)</h1>    
+                    <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 1+'%'}}>
+                    
+                        
                         <Link to={"/alunos/adicionar"} className="btn btn-success">
                             Cadastrar
                         </Link>
@@ -550,7 +552,8 @@ export default class Aluno extends Component {
                             <button type="button" onClick={this.toggleFiltro} className="btn btn-info">
                                 {this.state.mostraFiltro ?  'Filtros': 'Esconder' }
                             </button>
-                        </div>                   
+                        </div>  
+                    </div>                 
 
                     <div className={className}>
                         <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', marginTop: 15+'px'}}>                        
@@ -673,8 +676,8 @@ export default class Aluno extends Component {
                             </tbody>
                         </table>
                     </div>
-                    </div>)}
-                </div>
+                  
+                </div>)}
             </div>
         )
     }
