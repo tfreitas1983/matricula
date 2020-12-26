@@ -432,7 +432,7 @@ export default class Status extends Component {
                                             <label></label>                                               
                                             <div className="form-check col-md-6">
                                                 <label className="form-check-label" style={{paddingLeft: 30+'%',width: 'max-content', fontSize: 18+'px'}}>
-                                                    <input className="form-check-input" type="checkbox" disabled checked={current.eja === true}  /> Candidato(a) EJA?
+                                                    <input className="form-check-input" type="checkbox" disabled checked={current.eja === true}  /> Candidato(a) EJA
                                                 </label>
                                             </div>                                         
                                         </div>
@@ -442,7 +442,7 @@ export default class Status extends Component {
                                             <label></label>                                               
                                             <div className="form-check col-md-6">
                                                 <label className="form-check-label" style={{width: 'max-content', fontSize: 18+'px'}}>
-                                                    <input className="form-check-input" type="checkbox" disabled checked={current.irmao === true}  /> Possui irmão na unidade escolar pretendida?
+                                                    <input className="form-check-input" type="checkbox" disabled checked={current.irmao === true}  /> Possui irmão na unidade escolar pretendida
                                                 </label>
                                             </div>                                         
                                         </div>
@@ -450,13 +450,13 @@ export default class Status extends Component {
                                             <label></label>                                               
                                             <div className="form-check col-md-6">
                                                 <label className="form-check-label" style={{width: 'max-content', fontSize: 18+'px'}}>
-                                                    <input className="form-check-input" type="checkbox" disabled checked={current.vulneravel === true}  /> Candidato(a) no Creas/Conselho Tutelar?
+                                                    <input className="form-check-input" type="checkbox" disabled checked={current.vulneravel === true}  /> Candidato(a) no Creas/Conselho Tutelar
                                                 </label>
                                             </div>                                         
                                         </div>
                                         <div className="col-md-4">
                                             <div className="form-group">                                    
-                                                <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Possui Deficiências?</label>
+                                                <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Possui Deficiências</label>
                                             </div>
                                             <div className="form-group">                                    
                                                 <div className="form-check form-check-inline">
@@ -504,7 +504,7 @@ export default class Status extends Component {
                                         </div>                                            
                                     </div>
                                         <div className="col-md-3">                                            
-                                        <label htmlFor="série">Série</label>
+                                        <label htmlFor="série">Ano de escolaridade</label>
                                         <div className="form-group">                                                    
                                             <input
                                             type="text" 

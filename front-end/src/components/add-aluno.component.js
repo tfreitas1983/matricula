@@ -237,7 +237,7 @@ export default class AdicionarAluno extends Component {
 
     handlerRG(e) {
         this.setState({
-            rg: e.target.value.replace(/\D/g, '')
+            rg: e.target.value = ("" + e.target.value).replace(/\D/g, '')
         })
     }
 
@@ -303,7 +303,7 @@ export default class AdicionarAluno extends Component {
 
     handlerCPFResponsavel(e) {
         this.setState({
-            cpf_responsavel: cpfMask(e.target.value)
+            cpf_responsavel: cpfMask(e.target.value = ("" + e.target.value).replace(/\D/g, ''))
         })
     }
 
@@ -1499,9 +1499,9 @@ export default class AdicionarAluno extends Component {
             serie = <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Série</label>
+                        <label>Ano de escolaridade</label>
                         <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                            <option value="" disabled>Série</option>
+                            <option value="" disabled> --- Selecio --- </option>
                             <option value="Creche I">Creche I</option>
                             <option value="Creche II">Creche II</option>
                             <option value="Creche III">Creche III</option>                       
@@ -1513,9 +1513,9 @@ export default class AdicionarAluno extends Component {
                         <label>Turno</label>
                         <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Selecione Turno---</option>
-                        <option value="1º Período"> 1º Período</option>
-                        <option value="2º Período"> 2º Período</option>
-                        <option value="3º Período"> 3º Período</option>                  
+                        <option value="Manhã"> Manhã</option>
+                        <option value="Tarde"> Tarde</option>
+                        <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
                         </select>
                     </div> 
@@ -1524,7 +1524,7 @@ export default class AdicionarAluno extends Component {
                     <div className="form-group row">                                
                         <div className="form-check" style={{marginLeft:3+'%'}}>
                             <label className="form-check-label">
-                                <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada?
+                                <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada
                             </label>
                         </div>
                     </div>
@@ -1536,9 +1536,9 @@ export default class AdicionarAluno extends Component {
             serie = <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label>Série</label>
+                        <label>Ano de escolaridade</label>
                         <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                            <option value="" disabled>Série</option>
+                            <option value="" disabled> --- Selecione --- </option>
                             <option value="Pré IV">Pré Escola IV</option>
                             <option value="Pré V">Pré Escola V</option>                     
                         </select>
@@ -1549,9 +1549,9 @@ export default class AdicionarAluno extends Component {
                         <label>Turno</label>
                         <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Selecione Turno---</option>
-                        <option value="1º Período"> 1º Período</option>
-                        <option value="2º Período"> 2º Período</option>
-                        <option value="3º Período"> 3º Período</option>                  
+                        <option value="Manhã"> Manhã</option>
+                        <option value="Tarde"> Tarde</option>
+                        <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
                         </select>
                     </div> 
@@ -1560,7 +1560,7 @@ export default class AdicionarAluno extends Component {
                     <div className="form-group row">                                
                         <div className="form-check" style={{marginLeft:3+'%'}}>
                             <label className="form-check-label">
-                                <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada?
+                                <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada
                             </label>
                         </div>
                     </div>
@@ -1571,9 +1571,9 @@ export default class AdicionarAluno extends Component {
         if (this.state.nivel === "Fundamental Anos Iniciais") {
             serie = <div className="row">
             <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>
@@ -1586,9 +1586,9 @@ export default class AdicionarAluno extends Component {
                     <label>Turno</label>
                     <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Escolha o turno---</option>
-                        <option value="1º Período"> 1º Período</option>
-                        <option value="2º Período"> 2º Período</option>
-                        <option value="3º Período"> 3º Período</option>                  
+                        <option value="Manhã"> Manhã</option>
+                        <option value="Tarde"> Tarde</option>
+                        <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
                     </select>
                 </div> 
@@ -1599,9 +1599,9 @@ export default class AdicionarAluno extends Component {
         if (this.state.nivel === "Fundamental Anos Finais") {
             serie = <div className="row">
             <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="6º ano">6º ano</option>
                     <option value="7º ano">7º ano</option>
                     <option value="8º ano">8º ano</option>
@@ -1614,9 +1614,9 @@ export default class AdicionarAluno extends Component {
                     <label>Turno</label>
                     <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Escolha o turno---</option>
-                        <option value="1º Período"> 1º Período</option>
-                        <option value="2º Período"> 2º Período</option>
-                        <option value="3º Período"> 3º Período</option>                  
+                        <option value="Manhã"> Manhã</option>
+                        <option value="Tarde"> Tarde</option>
+                        <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
                     </select>
                 </div> 
@@ -1632,7 +1632,7 @@ export default class AdicionarAluno extends Component {
                 <div className="col-md-6" style={{paddingLeft: 30}}>
                     <div className="form-check col-md-6">
                         <label className="form-check-label" style={{paddingLeft: 30+'%',width: 'max-content', fontSize: 18+'px'}}>
-                            <input className="form-check-input" type="checkbox" hidden  onChange={this.handlerEja}  /> Candidato(a) EJA?
+                            <input className="form-check-input" type="checkbox" hidden  onChange={this.handlerEja}  /> Candidato(a) EJA
                         </label>
                     </div>
                 </div>
@@ -1645,7 +1645,7 @@ export default class AdicionarAluno extends Component {
             <div className="col-md-6" style={{paddingLeft: 30}}>
                 <div className="form-check col-md-6">
                     <label className="form-check-label" style={{paddingLeft: 30+'%',width: 'max-content', fontSize: 18+'px'}}>
-                        <input className="form-check-input" type="checkbox" checked={this.state.eja === true} onChange={this.handlerEja}  /> Candidato(a) EJA?
+                        <input className="form-check-input" type="checkbox" checked={this.state.eja === true} onChange={this.handlerEja}  /> Candidato(a) EJA
                     </label>
                 </div>
             </div>
@@ -1657,7 +1657,7 @@ export default class AdicionarAluno extends Component {
             <div className="col-md-6" style={{paddingLeft: 30}}>
                 <div className="form-check col-md-6">
                     <label className="form-check-label" style={{paddingLeft: 30+'%',width: 'max-content', fontSize: 18+'px'}}>
-                        <input className="form-check-input" type="checkbox" disabled checked={true} onChange={this.handlerEja}  /> Candidato(a) EJA?
+                        <input className="form-check-input" type="checkbox" disabled checked={true} onChange={this.handlerEja}  /> Candidato(a) EJA
                     </label>
                 </div>
             </div>
@@ -1982,7 +1982,7 @@ export default class AdicionarAluno extends Component {
                                                 <div className="col-md-2">
                                                     <div className="card-body text-secondary" style={{padding: 0, margin: 0}}>
                                                         <input 
-                                                        type="text" 
+                                                        maxLength="11"
                                                         className="form-control" 
                                                         onChange={this.handlerRG} 
                                                         placeholder="Digite o RG" />
@@ -2000,7 +2000,7 @@ export default class AdicionarAluno extends Component {
                                                 <div className="col-md-2">
                                                     
                                                     <div className="form-group">                                    
-                                                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Bolsa Família?</label>
+                                                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Bolsa Família</label>
                                                         </div>
                                                         <div className="form-group">                                    
                                                             <div className="form-check form-check-inline">
@@ -2044,7 +2044,7 @@ export default class AdicionarAluno extends Component {
                                                     <div className="form-group row">                                
                                                         <div className="form-check" style={{marginLeft:3+'%'}}>
                                                             <label className="form-check-label">
-                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerIrmao} style={{marginRight: 1+'%'}} /> Possui irmão na unidade escolar pretendida?
+                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerIrmao} style={{marginRight: 1+'%'}} /> Possui irmão na unidade escolar pretendida
                                                             </label>
                                                         </div>
                                                     </div>
@@ -2055,7 +2055,7 @@ export default class AdicionarAluno extends Component {
                                                     <div className="form-group row">                                
                                                         <div className="form-check" style={{marginLeft:3+'%'}}>
                                                             <label className="form-check-label">
-                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Candidato(a) no Creas/Conselho Tutelar?
+                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Candidato(a) no Creas/Conselho Tutelar
                                                             </label>
                                                         </div>
                                                     </div>
@@ -2065,7 +2065,7 @@ export default class AdicionarAluno extends Component {
                                                 <div className="col-md-12">
                                                 <div className="col-md-6">
                                                         <div className="form-group">                                    
-                                                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Possui Deficiências?</label>
+                                                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Possui Deficiências</label>
                                                         </div>
                                                         <div className="form-group">                                    
                                                             <div className="form-check form-check-inline">

@@ -366,14 +366,14 @@ export default class VisualizarEscola extends Component {
                             <div className="col-md-3">
                                 <div className="form-check">
                                     <label className="form-check-label" style={{marginRight: 2+'%'}}>
-                                        <input className="form-check-input" type="checkbox" disabled checked={current.eja} onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA?
+                                        <input className="form-check-input" type="checkbox" disabled checked={current.eja} onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA
                                     </label>                                    
                                 </div>
                             </div>
                             <div className="col-md-3">
                             <div className="form-check">
                                     <label className="form-check-label" style={{marginRight: 2+'%'}}>
-                                        <input className="form-check-input" disabled type="checkbox" checked={current.conveniada}  onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada?
+                                        <input className="form-check-input" disabled type="checkbox" checked={current.conveniada}  onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada
                                     </label>
                                 </div>
                             </div>

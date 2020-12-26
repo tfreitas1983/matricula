@@ -6,7 +6,7 @@ const cors = require ('cors')
 const app = express()
 
 var corsOptions = {
-    origin: ["http://localhost:3005","http://10.1.1.26:3005", "http://localhost:9000","http://matriculabelfordroxo.com.br", "http://matriculabelfordroxo.com.br" ,"http://matricula.ddns.net:3005", "http://matricula.ddns.net:9000"]
+    origin: ["http://localhost:3005", "http://localhost:9000","http://matriculabelfordroxo.com.br", "http://matriculabelfordroxo.com.br" ,"http://matricula.ddns.net:3005", "http://matricula.ddns.net:9000"]
 }
 
 app.use(cors(corsOptions))

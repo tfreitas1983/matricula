@@ -187,7 +187,7 @@ export default class VisualizarTurma extends Component {
         if (current.nivel === "Fundamental Anos Finais") {
             eja = <div className="form-check">
                 <label className="form-check-label" style={{marginRight: 2+'%', marginTop: 1+'%', fontSize: 18+'px'}}>
-                    <input className="form-check-input" type="checkbox" disabled checked={current.eja === true} onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA?
+                    <input className="form-check-input" type="checkbox" disabled checked={current.eja === true} onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA
                 </label>
             </div>
         }
@@ -260,7 +260,7 @@ export default class VisualizarTurma extends Component {
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label htmlFor="serie"> Série </label>
+                                    <label htmlFor="serie"> Ano de escolaridade </label>
                                     <input 
                                     type="text" 
                                     className="form-control" 

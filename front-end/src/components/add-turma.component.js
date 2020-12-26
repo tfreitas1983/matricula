@@ -428,9 +428,9 @@ export default class AdicionarTurma extends Component {
 
         if (this.state.nivel === "Creche") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled>Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="Creche I">Creche I</option>
                     <option value="Creche II">Creche II</option>
                     <option value="Creche III">Creche III</option>
@@ -440,9 +440,9 @@ export default class AdicionarTurma extends Component {
 
         if (this.state.nivel === "Pré escola") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled>Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="Pré IV">Pré Escola IV</option>
                     <option value="Pré V">Pré Escola V</option>
                 </select>
@@ -451,9 +451,9 @@ export default class AdicionarTurma extends Component {
 
         if (this.state.nivel === "Fundamental Anos Iniciais") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>
@@ -465,9 +465,9 @@ export default class AdicionarTurma extends Component {
 
         if (this.state.nivel === "Fundamental Anos Finais") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="6º ano">6º ano</option>
                     <option value="7º ano">7º ano</option>
                     <option value="8º ano">8º ano</option>
@@ -478,9 +478,9 @@ export default class AdicionarTurma extends Component {
 
         if (this.state.nivel === "Semi Presencial") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>
@@ -626,9 +626,9 @@ export default class AdicionarTurma extends Component {
                                 <label htmlFor="turno"> Turno </label>
                                 <select className="form-control" id="nivel" name="nivel"value={this.state.turno} onChange={this.handlerTurno} > 
                                     <option value="" disabled> ---Selecione o turno--- </option>
-                                    <option value="1º Período">1º Período</option>
-                                    <option value="2º Período">2º Período</option>
-                                    <option value="3º Período">3º Período</option>
+                                    <option value="Manhã">Manhã</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noite">Noite</option>
                                     <option value="Intermediário">Intermediário</option>
                                 </select>
                             </div>
@@ -642,7 +642,7 @@ export default class AdicionarTurma extends Component {
                                         value={this.state.escola}                                    
                                         onChange={this.handlerEscola} >     
                                     
-                                        <option value="" disabled>---Selecione---</option>  
+                                        <option value="" disabled> ---Selecione--- </option>  
                                         {lista}                     
                                     </select>
                                 </div>

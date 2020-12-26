@@ -592,7 +592,7 @@ export default class Aluno extends Component {
                                 value={buscaSerie}                                    
                                 onChange={this.handlerBuscaSerie}
                                 ref={el => this.inputserie = el} >                              
-                                <option value="" disabled> --- Selecione a série --- </option>
+                                <option value="" disabled> --- Ano de escolaridade --- </option>
                                 <option value="Creche I"> Creche I </option>
                                 <option value="Creche II"> Creche II </option>
                                 <option value="Creche III"> Creche III </option>
@@ -616,9 +616,9 @@ export default class Aluno extends Component {
                                 onChange={this.handlerBuscaTurno}
                                 ref={el => this.inputTurno = el} >                              
                                 <option value="" disabled> --- Selecione o turno --- </option>
-                                <option value="1º Período"> 1º Período</option>
-                                <option value="2º Período"> 2º Período</option>
-                                <option value="3º Período"> 3º Período</option>                  
+                                <option value="Manhã"> Manhã</option>
+                                <option value="Tarde"> Tarde</option>
+                                <option value="Noite"> Noite</option>                  
                                 <option value="Intermediário"> Intermediário</option> 
                             </select>
                             <select 
@@ -648,7 +648,7 @@ export default class Aluno extends Component {
                                     <th>Nome</th>
                                     <th>Dt Nascimento</th>                                
                                     <th>Escola</th>
-                                    <th>Série</th>
+                                    <th>Ano de escolaridade</th>
                                     <th>Turno</th>
                                     <th>Turma</th>                                
                                     <th>Dt Solicitado</th>                                

@@ -574,9 +574,9 @@ export default class Turma extends Component {
 
         if (current.nivel === "Creche") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled>Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="Creche I">Creche I</option>
                     <option value="Creche II">Creche II</option>
                     <option value="Creche III">Creche III</option>
@@ -586,9 +586,9 @@ export default class Turma extends Component {
 
         if (current.nivel === "Pré escola") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled>Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="Pré IV">Pré Escola IV</option>
                     <option value="Pré V">Pré Escola V</option>
                 </select>
@@ -597,9 +597,9 @@ export default class Turma extends Component {
 
         if (current.nivel === "Fundamental Anos Iniciais") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>
@@ -611,9 +611,9 @@ export default class Turma extends Component {
 
         if (current.nivel === "Fundamental Anos Finais") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled> --- Selecione --- </option>
                     <option value="6º ano">6º ano</option>
                     <option value="7º ano">7º ano</option>
                     <option value="8º ano">8º ano</option>
@@ -624,9 +624,9 @@ export default class Turma extends Component {
 
         if (current.nivel === "Semi Presencial") {
             serie = <div className="form-group">
-                <label>Série</label>
+                <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled> Selecione a série</option>
+                    <option value="" disabled>  --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>
@@ -644,7 +644,7 @@ export default class Turma extends Component {
         if (current.nivel === "Fundamental Anos Finais") {
             eja = <div className="form-check">
                 <label className="form-check-label" style={{marginRight: 2+'%', marginTop: 1+'%', fontSize: 18+'px'}}>
-                    <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA?
+                    <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA
                 </label>
             </div>
         }
@@ -763,9 +763,9 @@ export default class Turma extends Component {
                                     <label htmlFor="turno"> Turno </label>
                                     <select className="form-control" id="turno" name="turno"value={current.turno} onChange={this.handlerTurno} > 
                                     <option value="" disabled> ---Selecione o turno --- </option>
-                                    <option value="1º Período">1º Período</option>
-                                    <option value="2º Período">2º Período</option>
-                                    <option value="3º Período">3º Período</option>
+                                    <option value="Manhã">Manhã</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noite">Noite</option>
                                     <option value="Intermediário">Intermediário</option>
                                          {/* <option value="Ensino Médio Técnico">Ensino Médio Técnico</option> */}
                                     </select>
@@ -790,7 +790,7 @@ export default class Turma extends Component {
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
-                                    <label style={{marginRight: 3+'%', marginTop: 1+'%', padding: 0}}>Aceita Deficientes?</label>
+                                    <label style={{marginRight: 3+'%', marginTop: 1+'%', padding: 0}}>Aceita Deficientes</label>
                                     <div className="form-check form-check-inline" >
                                         <input 
                                             className="form-check-input"

@@ -7,6 +7,12 @@ import acompanhar from "../images/acompanhar.png"
 import buscar from "../images/buscar.png"
 import quadro from "../images/quadro.jpeg"
 
+import capa from "../images/capa.jpg"
+import cabecalho from "../images/cabecalho.gif"
+import criancas from  "../images/criancas.jpeg"
+import doc1 from  "../images/doc1.jpeg"
+import doc2 from  "../images/doc2.jpeg"
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -19,6 +25,7 @@ export default class Login extends Component {
         this.handlerDtNascimento = this.handlerDtNascimento.bind(this)
         this.verificaMatricula = this.verificaMatricula.bind(this)
         this.acompanha = this.acompanha.bind(this)
+        this.hide = this.hide.bind(this)
         
         this.state = {
             alunos: [],
@@ -29,7 +36,8 @@ export default class Login extends Component {
             protocolo: "",
             dtnascimento: "",
             className: 'show',
-            acompanha: null           
+            acompanha: null  ,
+            hidden: false         
         }
     }
 
@@ -165,6 +173,12 @@ export default class Login extends Component {
         }
     }
 
+    hide() {
+        this.setState({
+            hidden: true
+        })
+    }
+
     render() {
 
         const {className} = this.state
@@ -186,33 +200,44 @@ export default class Login extends Component {
             </div>
         }
 
+        let segundo = null
+        if (this.state.hidden === true) {
+            segundo = <div>
+                      
+            <div style={{display:'grid', justifyContent: 'center'}}>
+                <img src={cabecalho} alt="cabeçalho" />
+            </div>
+            <div>
+                <img src={quadro} alt="quadro" style={{display: 'flex', position: 'absolute', zIndex: -1, width: 100+'vw'}} />
+            </div>
+
+            <div className="itens">   
+                {matricula} {acompanha}
+
+                <Link to={"/solicita-vaga"}  > 
+                    <img src={buscar} className={className} alt="acompanhar" />
+                </Link>
+                        
+                
+                <img src={acompanhar} className={className} onClick={this.showAcompanhar} alt="acompanhar" />
+                
+            </div>
+
+            <div style={{display:'grid', justifyContent: 'center', marginTop: 18+'%', justifyItems: 'center'}}>
+                <img src={criancas} alt="calendário" />
+                <img src={doc1} alt="Documentação1" />
+                <img src={doc2} alt="Documentação2" />
+            </div>
+        </div>
+        }
+
 
         return (
             <div>
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <h1>
-                        Candita-se à vaga
-                    </h1>
+                <div hidden={this.state.hidden} style={{display: 'flex', justifyContent: 'center'}}>
+                    <img src={capa} onClick={this.hide} alt="matrícula"  style={{height: 100+'vh'}} />
                 </div>
-                
-                <div style={{display:'flex', justifyContent: 'center'}}>
-                    <img src={quadro} alt="quadro" style={{display: 'flex', position: 'absolute', zIndex: -1, width: 100+'vw'}} />
-                </div>
-
-                <div className="itens">   
-                    {matricula} {acompanha}
-
-                    <Link to={"/solicita-vaga"}  > 
-                        <img src={buscar} className={className} alt="acompanhar" />
-                    </Link>
-                   {/* <img src={aluno} alt="aluno" className={className} onClick={this.showMatricula}/> */}
-                    
-                    
-                    <img src={acompanhar} className={className} onClick={this.showAcompanhar} alt="acompanhar" />
-                    
-
-                    
-                </div>
+                {segundo}
             </div>
         )
     }

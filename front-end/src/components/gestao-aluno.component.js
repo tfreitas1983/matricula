@@ -411,7 +411,7 @@ export default class GestaoAluno extends Component {
                         disabled />
                     </div>
                     <div className="col-md-2">
-                        <label htmlFor="nome">Série</label>
+                        <label htmlFor="nome">Ano de escolaridade</label>
                         <input 
                         type="text" 
                         className="form-control" 

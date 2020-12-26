@@ -81,7 +81,8 @@ export default class Register extends Component {
       selectedEscola: "",
       roles: [],
       successful: false,
-      message: ""
+      message: "",
+      situacao: true
     };
   }
 
@@ -168,6 +169,7 @@ export default class Register extends Component {
         this.state.password,
         this.state.selectedEscola,
         this.state.roles,
+        this.state.situacao
       ).then(
         response => {
           this.setState({

@@ -97,7 +97,7 @@ export default class Turma extends Component {
                                 <th>Descrição</th>
                                 <th>Quantidade</th>
                                 <th>Nível</th>
-                                <th>Série</th>
+                                <th>Ano de escolaridade</th>
                                 <th>Turno</th>
                                 <th>Deficiência?</th>
                                 <th>Ações</th>                            

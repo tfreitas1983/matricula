@@ -1,9 +1,12 @@
 import React, { Component } from "react"
 import EscolaDataService from "../services/escola.service"
+import TurmaDataService from "../services/turma.service"
 import CepDataService from "../services/cep.service"
 import SubPrefeituraDataService from "../services/subprefeitura.service"
 import AuthService from "../services/auth.service"
 import {Link} from 'react-router-dom'
+import {FaEdit, FaEye, FaPowerOff} from 'react-icons/fa'
+import { IconContext } from "react-icons"
 import axios from 'axios'
 import {cnpjMask} from './cnpjMask'
 import {cepMask} from './cepMask'
@@ -50,6 +53,7 @@ export default class EditarEscola extends Component {
         this.pegaLocalizacao = this.pegaLocalizacao.bind(this)
         this.pegaLocalizacaoCEP = this.pegaLocalizacaoCEP.bind(this)
         this.pegaEnderecoCep = this.pegaEnderecoCep.bind(this)
+        this.pegaTurmas = this.pegaTurmas.bind(this)
 
         this.inputLogradouro = React.createRef()
         this.inputBairro = React.createRef()
@@ -65,7 +69,8 @@ export default class EditarEscola extends Component {
             showModeratorBoard: false,
             message: "",
             subprefeituras: [],
-            ceps: [],            
+            ceps: [],   
+            turmas: [],         
             current: {
                 id: null,
                 descricao: "",
@@ -114,6 +119,7 @@ export default class EditarEscola extends Component {
     componentDidMount() {
         this.buscarEscola(this.props.match.params.id)
         this.pegaSubPrefeituras() 
+        this.pegaTurmas()
 
         if (this.state.currentUser) {
             this.setState({
@@ -129,14 +135,14 @@ export default class EditarEscola extends Component {
             this.setState({
                 current: {
                     id: response.data.id,
-                    descricao: response.data.descricao, 
+                    descricao: response.data.descricao.toUpperCase(), 
                     cnpj: response.data.cnpj,
                     inep: response.data.inep,                       
-                    logradouro: response.data.logradouro,
-                    numero: response.data.numero,
-                    complemento: response.data.complemento,
-                    bairro: response.data.bairro,
-                    cidade: response.data.cidade,
+                    logradouro: response.data.logradouro.toUpperCase(),
+                    numero: response.data.numero.toUpperCase(),
+                    complemento: response.data.complemento.toUpperCase(),
+                    bairro: response.data.bairro.toUpperCase(),
+                    cidade: response.data.cidade.toUpperCase(),
                     uf: response.data.uf,
                     cep: response.data.cep,
                     telefone: response.data.telefone,
@@ -186,7 +192,24 @@ export default class EditarEscola extends Component {
          .catch(e => {
              console.log(e)
          })
-     }
+    }
+
+    pegaTurmas(page = 1) {        
+        TurmaDataService.buscarTodos(page)
+            .then(response => {
+            //REST do response da API em duas constantes: 
+            // "docs" com os dados do chamado e "info" com os dados das páginas
+                const { docs, ...info } = response.data
+                this.setState({
+                    turmas: docs,
+                    info: info,
+                    page: page
+                })                
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
     
 
     handlerDescricao(e) {
@@ -711,7 +734,7 @@ export default class EditarEscola extends Component {
 
     render () {
 
-        const {current, subprefeituras, showAdminBoard, showModeratorBoard} = this.state
+        const {current, subprefeituras, showAdminBoard, showModeratorBoard, turmas} = this.state
 
         
         let listasub = null
@@ -788,6 +811,61 @@ export default class EditarEscola extends Component {
                             {outra}
                         </div>
                     </div>                    
+                </div>
+            </div>
+        }
+
+        let filtroTurma = []
+        filtroTurma = turmas.filter((item) => {
+            return item.escola === current.descricao
+        })
+
+        let mostrarTurma = null
+
+        if (filtroTurma.length > 0) {
+            mostrarTurma = <div>
+                <hr />
+                <hr />
+               
+
+                <h1 style={{marginLeft: 1 + '%'}}>Lista de Turmas</h1>
+                <Link to={"/turmas/adicionar"} className="btn btn-success" style={{width: 10+'%', margin: 1+'%'}}> Cadastrar </Link>
+
+                <div className="list-group">
+                    <table className="tabela">
+                        <tbody>
+                            <tr className="bordalinha"> 
+                                <th>Escola</th>                               
+                                <th>Descrição</th>
+                                <th>Quantidade</th>
+                                <th>Nível</th>
+                                <th>Ano de escolaridade</th>
+                                <th>Turno</th>
+                                <th>Deficiência?</th>
+                                <th>Ações</th>                            
+                            </tr>
+                            {filtroTurma.map((turma, index) => (
+                                <tr key={index} className="bordalinha">
+                                    <td style={{width: 20+'%'}}>{turma.escola}</td>
+                                    <td style={{width: 10+'%'}}>{turma.descricao}</td>                                
+                                    <td style={{width: 10+'%'}}>{turma.qtd}</td>
+                                    <td style={{width: 15+'%'}}>{turma.nivel}</td>  
+                                    <td style={{width: 10+'%'}}>{turma.serie}</td>
+                                    <td style={{width: 10+'%'}}>{turma.turno}</td>
+                                    <td style={{width: 10+'%'}}>
+                                        
+                                    </td>                                                                         
+                                    <td style={{width: 15+'%'}}>
+                                        <IconContext.Provider value={{ size: "2em", className: "global-class-name" }}>
+                                            {<Link to={`/turmas/visualizar/${turma.id}`} id="view" style={{textDecoration: 'none'}}> <FaEye /> </Link>}
+                                            {<Link to={`/turmas/editar/${turma.id}`} id="edit"> <FaEdit /> </Link>}
+                                            {<Link to={`/turmas/editar/${turma.id}`} id="edit"> <FaPowerOff /> </Link>}
+                                        </IconContext.Provider>
+                                    </td>                                
+                                </tr> 
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         }
@@ -961,14 +1039,14 @@ export default class EditarEscola extends Component {
                             <div className="col-md-6" style={{padding: 1+'%'}}>
                             <div className="form-check">
                                     <label className="form-check-label" style={{marginRight: 2+'%'}}>
-                                        <input className="form-check-input" type="checkbox" checked={current.eja} onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA?
+                                        <input className="form-check-input" type="checkbox" checked={current.eja} onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA
                                     </label>
                                 </div>
                             </div>
                             <div className="col-md-6"  style={{padding: 1+'%'}}>
                             <div className="form-check">
                                     <label className="form-check-label" style={{marginRight: 2+'%'}}>
-                                        <input className="form-check-input" type="checkbox" checked={current.conveniada}  onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada?
+                                        <input className="form-check-input" type="checkbox" checked={current.conveniada}  onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada
                                     </label>
                                 </div>
                             </div>
@@ -979,7 +1057,7 @@ export default class EditarEscola extends Component {
                         <div className="row">
                             <div hidden className="col-md-6">
                                 <div className="form-group">
-                                    <label style={{marginRight: 3+'%', marginTop: 1+'%', padding: 0}}>Aceita Deficientes?</label>
+                                    <label style={{marginRight: 3+'%', marginTop: 1+'%', padding: 0}}>Aceita Deficientes</label>
                                     <div className="form-check form-check-inline">
                                         <input 
                                             className="form-check-input"
@@ -1063,6 +1141,8 @@ export default class EditarEscola extends Component {
 
 
                         <h4>{this.state.message}</h4>
+
+                        {mostrarTurma}
                        
                     </div>  
                 ) : (
