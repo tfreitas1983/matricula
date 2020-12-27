@@ -49,6 +49,12 @@ export default class EditarEscola extends Component {
         this.handlerLat = this.handlerLat.bind(this) 
         this.handlerLong = this.handlerLong.bind(this)  
 
+        this.handlerTurma = this.handlerTurma.bind(this)
+        this.handlerNivel = this.handlerNivel.bind(this)
+        this.handlerQtd = this.handlerQtd.bind(this)
+        this.handlerTurno = this.handlerTurno.bind(this)
+        this.handlerSerie = this.handlerSerie.bind(this)
+
         this.pegaSubPrefeituras = this.pegaSubPrefeituras.bind(this)
         this.pegaLocalizacao = this.pegaLocalizacao.bind(this)
         this.pegaLocalizacaoCEP = this.pegaLocalizacaoCEP.bind(this)
@@ -62,6 +68,11 @@ export default class EditarEscola extends Component {
         this.inputLongitude = React.createRef()
 
         this.salvarEscola = this.salvarEscola.bind(this)
+        this.salvarTurma = this.salvarTurma.bind(this)
+        this.novaTurma = this.novaTurma.bind(this)
+
+        this.inputQtd = React.createRef()
+        this.inputTurma = React.createRef()
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
@@ -70,7 +81,14 @@ export default class EditarEscola extends Component {
             message: "",
             subprefeituras: [],
             ceps: [],   
-            turmas: [],         
+            turmas: [],             
+            turma: "",
+            qtd: "",
+            matriculas: 0,
+            serie: "",
+            turno: "",
+            msg: "", 
+            mostraForm: false,      
             current: {
                 id: null,
                 descricao: "",
@@ -209,8 +227,7 @@ export default class EditarEscola extends Component {
             .catch(e => {
                 console.log(e)
             })
-    }
-    
+    }    
 
     handlerDescricao(e) {
         const descricao = e.target.value = ("" + e.target.value).toUpperCase()
@@ -241,7 +258,6 @@ export default class EditarEscola extends Component {
             }
         }))
     }
-
 
     handlerLogradouro(e) {
         const logradouro = e.target.value = ("" + e.target.value).toUpperCase()
@@ -533,6 +549,36 @@ export default class EditarEscola extends Component {
         }))
     }
 
+    handlerTurma(e) {
+        this.setState({
+            turma: e.target.value = ("" + e.target.value).toUpperCase()
+        })
+    }
+
+    handlerNivel(e) {
+        this.setState({
+            nivel: e.target.value
+        })
+    }
+
+    handlerQtd(e) {
+        this.setState({
+            qtd: e.target.value = e.target.value.replace(/\D/g, '')
+        })
+    }
+
+    handlerSerie(e) {
+        this.setState({
+            serie: e.target.value
+        })
+    }
+
+    handlerTurno(e) {
+        this.setState({
+            turno: e.target.value
+        })
+    }
+
     async pegaEnderecoCep(page = 1) {
 
         if (this.state.current.cep !== "" || this.state.current.cep !== undefined ) {
@@ -634,7 +680,6 @@ export default class EditarEscola extends Component {
         }        
     }
 
-
     salvarEscola() {
         var data = null
 
@@ -727,10 +772,120 @@ export default class EditarEscola extends Component {
             console.log(e)
         })
     }
-    
 
-    
+    async salvarTurma() {
+        var data = null
+        if (this.state.deficiente === "Não") {
+            data = {
+                descricao: this.state.turma,
+                username: this.state.currentUser.username,
+                nivel: this.state.nivel,
+                qtd: this.state.qtd,
+                matriculas: 0,
+                serie: this.state.serie,
+                turno: this.state.turno,
+                eja: this.state.eja,
+               // selectedCurso: this.state.selectedCurso,
+                escola: this.state.current.descricao,
+                deficiente: this.state.current.deficiente,
+                mental: false,
+                motora: false,
+                auditiva: false,
+                fala: false,
+                visual: false,        
+                cegueira: false,
+                baixaVisao: false,
+                multipla: false,
+                surdoCegueira: false,
+                superdotacao: false,
+                down: false,
+                autismo: false,
+                chkOutra: false,           
+                outra: ""
+            }    
+        } else {
+            data = {
+                descricao: this.state.turma,
+                username: this.state.currentUser.username,
+                nivel: this.state.nivel,
+                qtd: this.state.qtd,
+                matriculas: 0,
+                serie: this.state.serie,
+                turno: this.state.turno,
+                eja: this.state.eja,
+               // selectedCurso: this.state.selectedCurso,
+                escola: this.state.current.descricao,
+                deficiente: this.state.current.deficiente,
+                mental: this.state.current.mental,
+                motora: this.state.current.motora,
+                auditiva: this.state.current.auditiva,
+                fala: this.state.current.fala,
+                visual: this.state.current.visual,                        
+                cegueira: this.state.current.cegueira,
+                baixaVisao: this.state.current.baixaVisao,
+                multipla: this.state.current.multipla,
+                surdoCegueira: this.state.current.surdoCegueira,
+                superdotacao: this.state.current.superdotacao,
+                down: this.state.current.down,
+                autismo: this.state.current.autismo,           
+                outra: this.state.current.outra
+            }
+        }
 
+        await TurmaDataService.cadastrar(data)
+        .then(response => {
+            this.setState({
+                id: response.data.id,
+                turma: response.data.descricao,
+                username: response.data.username,
+                nivel: response.data.nivel,
+                qtd: response.data.qtd,
+                matriculas: response.data.matriculas,
+                serie: response.data.serie,
+                turno: response.data.turno,
+                eja: response.data.eja,
+               // selectedCurso: response.data.selectedCurso,
+                escola: response.data.escola,
+                deficiente: response.data.deficiente,
+                mental: response.data.mental,
+                motora: response.data.motora,
+                auditiva: response.data.auditiva,
+                visual: response.data.visual,       
+                cegueira: response.data.cegueira,
+                baixaVisao: response.data.baixaVisao,
+                multipla: response.data.multipla,
+                surdoCegueira: response.data.surdoCegueira,
+                superdotacao: response.data.superdotacao,
+                fala: response.data.fala,
+                down: response.data.down,
+                autismo: response.data.autismo,
+                outra: response.data.outra,
+                situacao: response.data.situacao,
+                submitted: true,
+                msg: "Turma adicionada com sucesso!"
+            })            
+        })
+        .catch(e => {
+            console.log(e)
+        })
+        this.pegaTurmas()
+        this.forceUpdate()
+    }
+
+
+    novaTurma() {
+        this.inputTurma.current.value = ""
+        this.inputQtd.current.value = ""
+
+        this.setState({
+            turma: "",
+            serie: "",
+            nivel: "",
+            qtd: "",
+            turno:"",
+            msg: ""
+        })
+    }
 
     render () {
 
@@ -821,15 +976,217 @@ export default class EditarEscola extends Component {
         })
 
         let mostrarTurma = null
+        let mostraForm = null
+
+        let serie = null
+
+        if (this.state.nivel === "Creche") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="Creche I">Creche I</option>
+                    <option value="Creche II">Creche II</option>
+                    <option value="Creche III">Creche III</option>
+                </select>
+            </div> 
+        }
+
+        if (this.state.nivel === "Pré escola") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="Pré IV">Pré Escola IV</option>
+                    <option value="Pré V">Pré Escola V</option>
+                </select>
+            </div> 
+        }
+
+        if (this.state.nivel === "Fundamental Anos Iniciais") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
+                </select>
+            </div>
+        }
+
+        if (this.state.nivel === "Fundamental Anos Finais") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+        }
+
+        if (this.state.nivel === "Semi Presencial") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+        }
+
+
+
+        let eja = null
+        if (this.state.nivel === "Fundamental Anos Finais") {
+            eja = <div className="form-check">
+                <label className="form-check-label" style={{marginRight: 2+'%', marginTop: 1+'%', fontSize: 18+'px'}}>
+                    <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA?
+                </label>
+            </div>
+        }
+
+        if (this.state.mostraForm === true) {
+            mostraForm = <div>
+            <h4>Cadastro de turma</h4>
+            <div className="row">
+                <div className="col-md-6" style={{padding: 0}}>
+                    <div className="form-group">
+                        <label htmlFor="turma"> Nome da turma </label>
+                        <input 
+                        type="text" 
+                        className="form-control" 
+                        id="turma" 
+                        required 
+                        value={this.state.turma} 
+                        onChange={this.handlerTurma} 
+                        name="turma"
+                        autoFocus
+                        ref={this.inputTurma} /> 
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label htmlFor="qtd"> Quantidade de vagas </label>
+                        <input 
+                        type="number" 
+                        min="1"
+                        max="100"
+                        className="form-control" 
+                        id="qtd" 
+                        required 
+                        value={this.state.qtd} 
+                        onChange={this.handlerQtd} 
+                        name="qtd"
+                        ref={this.inputQtd} />
+                    </div>  
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6" style={{padding: 0}}>
+                    <div className="form-group">
+                        <label htmlFor="nivel"> Nível </label>
+                        <select className="form-control" id="nivel" name="nivel"value={this.state.nivel} onChange={this.handlerNivel} > 
+                        <option value="" > Selecione o nível de ensino</option>
+                        <option value="Creche">Creche</option>
+                        <option value="Pré escola">Pré escola</option>
+                        <option value="Fundamental Anos Iniciais">Fundamental Anos Iniciais</option>
+                        <option value="Fundamental Anos Finais">Fundamental Anos Finais</option>
+                        <option value="Semi Presencial">Semi Presencial</option>
+                        {/*<option value="Ensino Médio">Ensino Médio</option>
+                        <option value="Ensino Médio Técnico">Ensino Médio Técnico</option>*/}
+                        </select>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    {serie}
+                </div>
+            </div>
+                    
+                    
+            <div className="row">
+                <div className="col-md-6" style={{padding:0}}>
+                    <label htmlFor="turno"> Turno </label>
+                    <select className="form-control" id="nivel" name="nivel"value={this.state.turno} onChange={this.handlerTurno} > 
+                        <option value="" disabled> ---Selecione o turno--- </option>
+                        <option value="Manhã">Manhã</option>
+                        <option value="Tarde">Tarde</option>
+                        <option value="Noite">Noite</option>
+                        <option value="Intermediário">Intermediário</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="form-group">                                    
+                        <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Aceita Deficientes?</label>
+                    </div>
+                    <div className="form-group">                                    
+                        <div className="form-check form-check-inline">
+                            <input 
+                                className="form-check-input"
+                                type="radio"
+                                name="sim"
+                                id="sim"
+                                value="Sim"
+                                checked={this.state.deficiente === 'Sim'}
+                                onChange={this.handlerDeficiente} />
+                        </div>
+                        <label className="form-check-label" onClick={() => this.setState({deficiente: "Sim"})} >Sim</label>
+
+                        <div className="form-check form-check-inline" style={{marginLeft: 2+'%'}}>
+                            <input 
+                                className="form-check-input"
+                                type="radio"
+                                name="nao"
+                                id="nao"
+                                value="Não"
+                                checked={this.state.deficiente === 'Não'}
+                                onChange={this.handlerDeficiente} />
+                        </div>
+                        <label className="form-check-label" onClick={() => this.setState({deficiente: "Não"})}>Não</label>
+                    </div>
+                </div> 
+                <div className="col-md-6">
+                    {eja}                           
+                </div>
+            </div>                
+                                 
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <button onClick={this.salvarTurma} className="btn btn-success">
+                    Adicionar
+                </button>
+
+                <button onClick={this.novaTurma} className="btn btn-success">
+                    Nova turma
+                </button>
+            </div>       
+            <h4> {this.state.msg} </h4>              
+        </div>
+        }
 
         if (filtroTurma.length > 0) {
             mostrarTurma = <div>
                 <hr />
                 <hr />
-               
 
                 <h1 style={{marginLeft: 1 + '%'}}>Lista de Turmas</h1>
-                <Link to={"/turmas/adicionar"} className="btn btn-success" style={{width: 10+'%', margin: 1+'%'}}> Cadastrar </Link>
+                <button className="btn btn-success" onClick={() => this.setState({mostraForm: true})}> Cadastrar </button>
+
+                {mostraForm}
 
                 <div className="list-group">
                     <table className="tabela">
