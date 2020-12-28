@@ -199,14 +199,28 @@ export default class Turma extends Component {
         }))
     }
 
-    handlerNivel(e) {
+    async handlerNivel(e) {
         const selectedNivel = e.target.value
-        this.setState(prevState => ({
+        await this.setState(prevState => ({
             current: {
                 ...prevState.current,
                 nivel: selectedNivel
             }
         }))
+
+        if (this.state.current.nivel === "EJA") {
+            this.setState(prevState => ({
+                current: {
+                    ...prevState.current,
+                    eja: true
+            }}))
+        } else {
+            this.setState(prevState => ({
+                current: {
+                    ...prevState.current,
+                    eja: false
+            }}))
+        }
     }
 
     handlerSerie(e) {
@@ -640,7 +654,25 @@ export default class Turma extends Component {
             </div>
         }
 
-        let eja = null
+        if (current.nivel === "EJA") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled>  --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+        }
+
+ /*       let eja = null
         if (current.nivel === "Fundamental Anos Finais") {
             eja = <div className="form-check">
                 <label className="form-check-label" style={{marginRight: 2+'%', marginTop: 1+'%', fontSize: 18+'px'}}>
@@ -649,7 +681,7 @@ export default class Turma extends Component {
             </div>
         }
     
-/*
+
         if (current.nivel === "Ensino Médio") {
             serie = <div className="form-group">
                 <label>Série</label>
@@ -743,6 +775,7 @@ export default class Turma extends Component {
                                     <option value="Fundamental Anos Iniciais">Fundamental Anos Iniciais</option>
                                     <option value="Fundamental Anos Finais">Fundamental Anos Finais</option>
                                     <option value="Semi Presencial">Semi Presencial</option>
+                                    <option value="EJA">EJA</option>
                                    {/* <option value="Ensino Médio">Ensino Médio</option>
                                     <option value="Ensino Médio Técnico">Ensino Médio Técnico</option> */}
                                     </select>
@@ -816,9 +849,9 @@ export default class Turma extends Component {
                                     <label className="form-check-label" onClick={() => this.setState(prevState => ({current: {...prevState.current, deficiente: "Não"}}))} >Não</label>
                                 </div>                                
                             </div> 
-                            <div className="col-md-6">
+                           {/* <div className="col-md-6">
                                 {eja} 
-                            </div>                           
+                            </div> */}                          
                         </div>
                         <div className="row">
                             <div className="col-md-12" style={{padding: 0}}>

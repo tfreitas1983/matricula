@@ -73,8 +73,6 @@ export default class AdicionarEscola extends Component {
 
         this.inputQtd = React.createRef()
         this.inputTurma = React.createRef()
-        
-        
 
         this.state = {
             currentUser: AuthService.getCurrentUser(),
@@ -98,6 +96,7 @@ export default class AdicionarEscola extends Component {
             subprefeitura: "",
             conveniada: false,
             turma: "",
+            ejaTurma: false,
             qtd: "",
             matriculas: 0,
             serie: "",
@@ -374,10 +373,16 @@ export default class AdicionarEscola extends Component {
         })
     }
 
-    handlerNivel(e) {
-        this.setState({
+    async handlerNivel(e) {
+        await this.setState({
             nivel: e.target.value
         })
+
+        if (this.state.nivel === "EJA") {
+            this.setState({
+                ejaTurma: true
+            })
+        }
     }
 
     handlerQtd(e) {
@@ -653,7 +658,7 @@ export default class AdicionarEscola extends Component {
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
-                eja: this.state.eja,
+                eja: this.state.ejaTurma,
                // selectedCurso: this.state.selectedCurso,
                 escola: this.state.descricao,
                 deficiente: this.state.deficiente,
@@ -681,7 +686,7 @@ export default class AdicionarEscola extends Component {
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
-                eja: this.state.eja,
+                eja: this.state.ejaTurma,
                // selectedCurso: this.state.selectedCurso,
                 escola: this.state.descricao,
                 deficiente: this.state.deficiente,
@@ -701,8 +706,6 @@ export default class AdicionarEscola extends Component {
             }
         }
 
-        
-
         await TurmaDataService.cadastrar(data)
         .then(response => {
             this.setState({
@@ -714,7 +717,7 @@ export default class AdicionarEscola extends Component {
                 matriculas: response.data.matriculas,
                 serie: response.data.serie,
                 turno: response.data.turno,
-                eja: response.data.eja,
+                eja: response.data.ejaTurma,
                // selectedCurso: response.data.selectedCurso,
                 escola: response.data.escola,
                 deficiente: response.data.deficiente,
@@ -754,11 +757,7 @@ export default class AdicionarEscola extends Component {
             turno:"",
             msg: ""
         })
-
-        
     }
-    
-    
 
     render() {
 
@@ -913,6 +912,24 @@ export default class AdicionarEscola extends Component {
             </div>
         }
 
+        if (this.state.nivel === "EJA") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+        }
+
 
 
         let eja = null
@@ -966,13 +983,14 @@ export default class AdicionarEscola extends Component {
                     <div className="col-md-6" style={{padding: 0}}>
                         <div className="form-group">
                             <label htmlFor="nivel"> Nível </label>
-                            <select className="form-control" id="nivel" name="nivel"value={this.state.nivel} onChange={this.handlerNivel} > 
+                            <select className="form-control" id="nivel" name="nivel" value={this.state.nivel} onChange={this.handlerNivel} > 
                             <option value="" disabled>Selecione o nível de ensino</option>
                             <option value="Creche">Creche</option>
                             <option value="Pré escola">Pré escola</option>
                             <option value="Fundamental Anos Iniciais">Fundamental Anos Iniciais</option>
                             <option value="Fundamental Anos Finais">Fundamental Anos Finais</option>
                             <option value="Semi Presencial">Semi Presencial</option>
+                            <option value="EJA">EJA</option>
                             {/*<option value="Ensino Médio">Ensino Médio</option>
                             <option value="Ensino Médio Técnico">Ensino Médio Técnico</option>*/}
                             </select>

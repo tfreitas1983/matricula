@@ -627,7 +627,7 @@ export default class Pedido extends Component {
         if (this.state.dtnascimento <= '2003-03-31') {
             this.setState({
                 eja: true,
-                nivel: "Fundamental Anos Finais"
+                nivel: "EJA"
             })
         }
 
@@ -1110,7 +1110,7 @@ export default class Pedido extends Component {
         } 
 
 
-        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-03-31') {
+        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-05-31') {
             alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar")
             return false
         }
@@ -1423,25 +1423,25 @@ export default class Pedido extends Component {
             
                     if (item.autismo === true) {
                         autismo = <div>
-                            <label> , Transtorno do espectro autista </label>
+                            <label> Transtorno do espectro autista </label>
                         </div>
                     }
             
                     if (item.fala === true) {
                         fala = <div>
-                            <label>, Fala</label>
+                            <label> Fala</label>
                         </div>
                     }
             
                     if (item.mental === true) {
                         mental = <div>
-                            <label>, Deficiência mental</label>
+                            <label> Deficiência mental</label>
                         </div>
                     }
             
                     if (item.motora === true) {
                         motora = <div>
-                            <label>, Deficiência física</label>
+                            <label> Deficiência física</label>
                         </div>
                     }
             
@@ -1453,44 +1453,44 @@ export default class Pedido extends Component {
             
                     if (item.visual === true) {
                         visual = <div>
-                            <label>, Deficiência visual</label>
+                            <label> Deficiência visual</label>
                         </div>
                     }
 
                     if (item.cegueira === true) {
                         cegueira = <div>
-                            <label>, Cegueira</label>
+                            <label> Cegueira</label>
                         </div>
                     }
 
                     if (item.baixaVisao === true) {
                         baixaVisao = <div>
-                            <label>, Baixa visão</label>
+                            <label> Baixa visão</label>
                         </div>
                     }
 
                     if (item.surdoCegueira === true) {
                         surdoCegueira = <div>
-                            <label>, Surdocegueira</label>
+                            <label> Surdocegueira</label>
                         </div>
                     }
 
                     if (item.multipla === true) {
                         multipla = <div>
-                            <label>, Deficiência múltipla</label>
+                            <label> Deficiência múltipla</label>
                         </div>
                     }
 
                     if (item.superdotacao === true) {
                         superdotacao = <div>
-                            <label>, Altas habilidades / Superdotação</label>
+                            <label>Altas habilidades / Superdotação</label>
                         </div>
                     }
             
             
                     if (item.chkOutra === true) {
                         outra = <div>
-                            <label>, Outra: {item.outra}</label>
+                            <label> Outra: {item.outra}</label>
                         </div>
                     }
 
@@ -1627,6 +1627,38 @@ export default class Pedido extends Component {
                 <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
                     <option value="" disabled> --- Selecione --- </option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+            <div className="col-md-6">
+                <div className="form-group">
+                    <label>Turno</label>
+                    <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
+                        <option value="" disabled>---Escolha o turno---</option>
+                        <option value="Manhã"> Manhã</option>
+                        <option value="Tarde"> Tarde</option>
+                        <option value="Noite"> Noite</option>                  
+                        <option value="Intermediário"> Intermediário</option>                  
+                    </select>
+                </div> 
+            </div>
+        </div>
+        }
+
+        if (this.state.nivel === "EJA" || this.state.dtnascimento  <= '2003-03-31') {
+            serie = <div className="row">
+            <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
                     <option value="6º ano">6º ano</option>
                     <option value="7º ano">7º ano</option>
                     <option value="8º ano">8º ano</option>
@@ -1953,9 +1985,9 @@ export default class Pedido extends Component {
                             </div>                                                    
                             
                                                     
-                            <div className="row" style={{display: 'flex', marginTop: 1+'%'}}>
+                           {/* <div className="row" style={{display: 'flex', marginTop: 1+'%'}}>
                                 {eja}                                                                                                                  
-                            </div>
+                            </div> */}
 
                             <div className="row">
                                 <div className="col-md-12">

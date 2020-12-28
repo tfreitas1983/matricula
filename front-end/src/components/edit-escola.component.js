@@ -87,7 +87,9 @@ export default class EditarEscola extends Component {
             matriculas: 0,
             serie: "",
             turno: "",
+            nivel: "",
             msg: "", 
+            ejaTurma: "",
             mostraForm: false,      
             current: {
                 id: null,
@@ -555,10 +557,16 @@ export default class EditarEscola extends Component {
         })
     }
 
-    handlerNivel(e) {
-        this.setState({
+    async handlerNivel(e) {
+        await this.setState({
             nivel: e.target.value
         })
+
+        if (this.state.nivel === "EJA") {
+            this.setState({
+                ejaTurma: true
+            })
+        }
     }
 
     handlerQtd(e) {
@@ -784,7 +792,7 @@ export default class EditarEscola extends Component {
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
-                eja: this.state.eja,
+                eja: this.state.ejaTurma,
                // selectedCurso: this.state.selectedCurso,
                 escola: this.state.current.descricao,
                 deficiente: this.state.current.deficiente,
@@ -812,7 +820,7 @@ export default class EditarEscola extends Component {
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
-                eja: this.state.eja,
+                eja: this.state.ejaTurma,
                // selectedCurso: this.state.selectedCurso,
                 escola: this.state.current.descricao,
                 deficiente: this.state.current.deficiente,
@@ -871,7 +879,6 @@ export default class EditarEscola extends Component {
         this.pegaTurmas()
         this.forceUpdate()
     }
-
 
     novaTurma() {
         this.inputTurma.current.value = ""
@@ -1048,8 +1055,26 @@ export default class EditarEscola extends Component {
             </div>
         }
 
+        if (this.state.nivel === "EJA") {
+            serie = <div className="form-group">
+                <label>Ano de escolaridade</label>
+                <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
+                    <option value="" disabled> --- Selecione --- </option>
+                    <option value="1º ano">1º ano</option>
+                    <option value="2º ano">2º ano</option>
+                    <option value="3º ano">3º ano</option>
+                    <option value="4º ano">4º ano</option>
+                    <option value="5º ano">5º ano</option>
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                </select>
+            </div>
+        }
 
 
+/*
         let eja = null
         if (this.state.nivel === "Fundamental Anos Finais") {
             eja = <div className="form-check">
@@ -1058,6 +1083,7 @@ export default class EditarEscola extends Component {
                 </label>
             </div>
         }
+*/
 
         if (this.state.mostraForm === true) {
             mostraForm = <div>
@@ -1106,6 +1132,7 @@ export default class EditarEscola extends Component {
                         <option value="Fundamental Anos Iniciais">Fundamental Anos Iniciais</option>
                         <option value="Fundamental Anos Finais">Fundamental Anos Finais</option>
                         <option value="Semi Presencial">Semi Presencial</option>
+                        <option value="EJA">EJA</option>
                         {/*<option value="Ensino Médio">Ensino Médio</option>
                         <option value="Ensino Médio Técnico">Ensino Médio Técnico</option>*/}
                         </select>
@@ -1160,9 +1187,7 @@ export default class EditarEscola extends Component {
                         <label className="form-check-label" onClick={() => this.setState({deficiente: "Não"})}>Não</label>
                     </div>
                 </div> 
-                <div className="col-md-6">
-                    {eja}                           
-                </div>
+               
             </div>                
                                  
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
