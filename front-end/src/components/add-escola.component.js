@@ -936,7 +936,7 @@ export default class AdicionarEscola extends Component {
         if (this.state.nivel === "Fundamental Anos Finais") {
             eja = <div className="form-check">
                 <label className="form-check-label" style={{marginRight: 2+'%', marginTop: 1+'%', fontSize: 18+'px'}}>
-                    <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA?
+                    <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%', transform: `scale(1.3)`}} /> EJA
                 </label>
             </div>
         }
@@ -1017,7 +1017,7 @@ export default class AdicionarEscola extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <div className="form-group">                                    
-                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Aceita Deficientes?</label>
+                            <label style={{marginRight: 3+'%', marginTop: 1+'%'}}>Aceita Deficientes</label>
                         </div>
                         <div className="form-group">                                    
                             <div className="form-check form-check-inline">
@@ -1245,7 +1245,7 @@ export default class AdicionarEscola extends Component {
                                 <div className="form-group row">                                                    
                                     <div className="form-check" style={{marginLeft:3+'%'}}>
                                         <label className="form-check-label">
-                                            <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA?
+                                            <input className="form-check-input" type="checkbox" onChange={this.handlerEja} style={{marginRight: 1+'%'}} /> Possui EJA
                                         </label>
                                     </div>
                                 </div>
@@ -1254,7 +1254,7 @@ export default class AdicionarEscola extends Component {
                                 <div className="form-group row">                                
                                     <div className="form-check" style={{marginLeft:3+'%'}}>
                                         <label className="form-check-label">
-                                            <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada?
+                                            <input className="form-check-input" type="checkbox" onChange={this.handlerConveniada} style={{marginRight: 1+'%'}} /> Conveniada
                                         </label>
                                     </div>
                                 </div>
@@ -1263,7 +1263,7 @@ export default class AdicionarEscola extends Component {
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">                                    
-                                    <label hidden style={{marginRight: 3+'%', marginTop: 1+'%'}}>Aceita Deficientes?</label>
+                                    <label hidden style={{marginRight: 3+'%', marginTop: 1+'%'}}>Aceita Deficientes</label>
                                 </div>
                                 <div className="form-group">                                    
                                     <div className="form-check form-check-inline">

@@ -705,7 +705,7 @@ export default class Pedido extends Component {
 
     buscarEscolas() {
 
-        this.calculaSerie()
+        
 
         let todasDistancias = []
         let atual = [this.state.lat, this.state.long]
@@ -1765,6 +1765,9 @@ export default class Pedido extends Component {
                             </label>*/}
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerAutismo}  /> Transtorno do espectro autista
+                            </label>
+                            <label className="form-check-label"  style={{marginRight: 3+'%'}}>
+                                <input className="form-check-input" type="checkbox" onChange={this.handlerSuperdotacao} /> Altas habilidades / Superdotação
                             </label>
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerChkOutra} /> Outra

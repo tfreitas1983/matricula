@@ -58,7 +58,6 @@ export default class Status extends Component {
                 situacao: true,
                 imagem: "",
                 url: "",
-                status: "",
                 submitted: false,
                 successful: false,
                 message: ""
