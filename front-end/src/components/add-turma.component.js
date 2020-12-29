@@ -486,7 +486,7 @@ export default class AdicionarTurma extends Component {
             </div>
         }
 
-        if (this.state.nivel === "Semi Presencial") {
+       /* if (this.state.nivel === "Semi Presencial") {
             serie = <div className="form-group">
                 <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
@@ -502,7 +502,7 @@ export default class AdicionarTurma extends Component {
                     <option value="9º ano">9º ano</option>
                 </select>
             </div>
-        }
+        } */
 
         if (this.state.nivel === "EJA") {
             serie = <div className="form-group">

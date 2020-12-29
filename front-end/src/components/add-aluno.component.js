@@ -125,7 +125,7 @@ export default class AdicionarAluno extends Component {
             numero: "",
             complemento: "",
             bairro: "",
-            cidade: "Belford Roxo",
+            cidade: "",
             uf: "RJ",
             cep: "",
             telefone: "",
@@ -1630,7 +1630,7 @@ export default class AdicionarAluno extends Component {
         </div>
         }
 
-        if (this.state.nivel === "Semi Presencial") {
+        /*if (this.state.nivel === "Semi Presencial") {
             serie = <div className="row">
             <div className="form-group">
                 <label>Ano de escolaridade</label>
@@ -1661,7 +1661,7 @@ export default class AdicionarAluno extends Component {
                 </div> 
             </div>
         </div>
-        }
+        }*/
 
         if (this.state.nivel === "EJA") {
             serie = <div className="row">

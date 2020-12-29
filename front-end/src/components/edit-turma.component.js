@@ -636,7 +636,7 @@ export default class Turma extends Component {
             </div>
         }
 
-        if (current.nivel === "Semi Presencial") {
+        /*if (current.nivel === "Semi Presencial") {
             serie = <div className="form-group">
                 <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
@@ -652,7 +652,7 @@ export default class Turma extends Component {
                     <option value="9º ano">9º ano</option>
                 </select>
             </div>
-        }
+        } */
 
         if (current.nivel === "EJA") {
             serie = <div className="form-group">
@@ -820,7 +820,7 @@ export default class Turma extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
+                        {/*<div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label style={{marginRight: 3+'%', marginTop: 1+'%', padding: 0}}>Aceita Deficientes</label>
@@ -851,8 +851,8 @@ export default class Turma extends Component {
                             </div> 
                            {/* <div className="col-md-6">
                                 {eja} 
-                            </div> */}                          
-                        </div>
+                            </div>                       
+                        </div>*/}    
                         <div className="row">
                             <div className="col-md-12" style={{padding: 0}}>
                                 {deficiencias} 

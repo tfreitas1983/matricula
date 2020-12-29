@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AlunoDataService from "../services/aluno.service"
 import { Link } from 'react-router-dom'
 import * as moment from 'moment'
+import cabecalho from '../images/cabecalho.jpg'
 
 export default class Status extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class Status extends Component {
                 numero: "",
                 complemento: "",
                 bairro: "",
-                cidade: "Belford Roxo",
+                cidade: "",
                 uf: "RJ",
                 cep: "",
                 telefone: "",
@@ -97,7 +98,7 @@ export default class Status extends Component {
                     numero: response.data.numero,
                     complemento: response.data.complemento,
                     bairro: response.data.bairro,
-                    cidade: "Belford Roxo",
+                    cidade: response.data.cidade,
                     uf: "RJ",
                     cep: response.data.cep,
                     telefone: response.data.telefone,
@@ -187,7 +188,12 @@ export default class Status extends Component {
 
         return (
             <div>
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+                
+                
+                <div style={{display: 'grid', justifyContent: 'center'}}>
+                    <div >
+                        <img src={cabecalho} alt="cabeçalho" style={{height: 70+'%', width: 70+'%'}} />
+                    </div>
                     <h1>
                         Status da solicitação: {current.status}
                     </h1> 

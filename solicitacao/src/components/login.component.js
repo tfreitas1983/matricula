@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
 import AlunoDataService from "../services/aluno.service"
 import { Link } from 'react-router-dom'
-import * as moment from 'moment'
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import "bootstrap/dist/css/bootstrap.min.css"
+
 import aluno from "../images/aluno.png"
 import acompanhar from "../images/acompanhar.png"
 import buscar from "../images/buscar.png"
 import quadro from "../images/quadro.jpeg"
 
 import capa from "../images/capa.jpg"
+import calendario from "../images/calendario.jpg"
+import documentacao from "../images/documentacao.jpg"
+import inscricao from "../images/inscricao.jpg"
+import matricular from "../images/matricula.jpg"
+import duvidas from "../images/duvidas.jpg"
+import fases from "../images/fases.jpg"
 import cabecalho from "../images/cabecalho.gif"
 import criancas from  "../images/criancas.jpeg"
 import doc1 from  "../images/doc1.jpeg"
@@ -158,24 +170,25 @@ export default class Login extends Component {
                 if (this.state.protocolo && this.state.protocolo === aluno.protocolo) {
                     this.props.history.push(`/painel-solicitacao/${aluno.id}`)
                     window.location.reload()                
-                }                                                       
+                }                                                    
             })        
         } else {
             alert("Não existem alunos")
         }
 
-        if (this.state.alunos.length > 0) {
+       /* if (this.state.alunos.length > 0) {
             if (this.state.alunos.indexOf({protocolo: this.state.protocolo}) > -1) {
                 return false                    
             } else {
                 return alert("Protocolo não encontrado!")
             } 
-        }
+        }*/
     }
 
     hide() {
         this.setState({
-            hidden: true
+            hidden: true,
+            mostraAcompanhar: false
         })
     }
 
@@ -196,7 +209,7 @@ export default class Login extends Component {
             acompanha = <div className="acompanha">
               <input placeholder="Digite o protocolo" autoFocus minLength="16" maxLength="16" onChange={this.handlerProtocolo}/>             
 
-                <button type="button" onClick={this.acompanha} > Verificar </button>  
+                {/*<button type="button" onClick={this.acompanha} > Verificar </button>  */}
             </div>
         }
 
@@ -235,10 +248,42 @@ export default class Login extends Component {
         return (
             <div>
                 <div hidden={this.state.hidden} style={{display: 'flex', justifyContent: 'center'}}>
-                    <img src={capa} onClick={this.hide} alt="matrícula"  style={{height: 100+'vh'}} />
+                    <img src={capa} alt="matrícula"  style={{height: 100+'vh'}} />
                 </div>
-                {segundo}
+
+                <div style={{display: 'flex', justifyContent: 'center', marginTop: 5+'%'}}>
+                    <Link to="/solicita-vaga" style={{marginRight: 5+'%'}}> <img src={matricular} alt="matrícula" /> </Link>
+                    <button type="button" onClick={this.showAcompanhar}> <img src={inscricao} alt="inscrição" style={{marginRight: 2.5+'%'}} /> </button>
+                    <img src={duvidas} alt="dúvidas" style={{marginLeft: 2.5+'%'}} />
+                </div>
+
+                <div style={{display: 'flex', justifyContent: 'center', marginTop: 2+'%'}}>
+                    <a href="#documents"  style={{marginRight: 4+'%'}}> <img src={documentacao} alt="documentação"  /> </a>
+                    <a href="#fases"> <img src={fases} alt="fases" style={{marginRight: 2.5+'%'}} /> </a>
+                    <img src={calendario} alt="calendário" style={{marginLeft: 2.5+'%'}}  />
+                </div>  
+
+                <section id="documents">
+                   <img src={doc1} alt="doc1" />
+                   <img src={doc2} alt="doc1" />
+                </section>  
+
+                <section id="fases" alt="fasescalendário" style={{display: 'flex', justifyContent: 'center'}}>
+                    <img src={criancas} alt="fases" />
+                </section>    
+
+                
+                <Modal show={this.state.mostraAcompanhar}>
+                    <ModalHeader>
+                        <ModalTitle>Busca de protocolo</ModalTitle>
+                        <div onClick={this.hide}> X </div>
+                    </ModalHeader>
+                    <ModalBody>{acompanha}</ModalBody>
+                    <ModalFooter><button className="btn btn-info" onClick={this.acompanha}>Buscar</button></ModalFooter>
+                </Modal>     
             </div>
+
+
         )
     }
 }

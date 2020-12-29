@@ -212,7 +212,7 @@ export default class EditarAluno extends Component {
                     numero: response.data.numero,
                     complemento: response.data.complemento,
                     bairro: response.data.bairro,
-                    cidade: "Belford Roxo",
+                    cidade: response.data.cidade,
                     uf: "RJ",
                     cep: response.data.cep,
                     telefone: response.data.telefone,
@@ -1979,7 +1979,7 @@ export default class EditarAluno extends Component {
         </div>
         }
 
-        if (this.state.nivel === "Semi Presencial") {
+        /*if (this.state.nivel === "Semi Presencial") {
             serie = <div className="row">
             <div className="form-group">
                 <label>Ano de escolaridade</label>
@@ -2010,7 +2010,7 @@ export default class EditarAluno extends Component {
                 </div> 
             </div>
         </div>
-        }
+        }*/
 
         if (this.state.nivel === "EJA") {
             serie = <div className="row">

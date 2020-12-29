@@ -136,7 +136,7 @@ export default class Pedido extends Component {
             numero: "",
             complemento: "",
             bairro: "",
-            cidade: "Belford Roxo",
+            cidade: "",
             uf: "RJ",
             cep: "",
             telefone: "",

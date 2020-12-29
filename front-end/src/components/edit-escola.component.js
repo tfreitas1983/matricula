@@ -703,7 +703,7 @@ export default class EditarEscola extends Component {
                 numero: this.state.current.numero,
                 complemento: this.state.current.complemento,
                 bairro: this.state.current.bairro,
-                cidade: "Belford Roxo",
+                cidade: this.state.current.cidade,
                 uf: 'RJ',
                 telefone: this.state.current.telefone,
                 email: this.state.current.email,
@@ -1037,7 +1037,7 @@ export default class EditarEscola extends Component {
             </div>
         }
 
-        if (this.state.nivel === "Semi Presencial") {
+       /* if (this.state.nivel === "Semi Presencial") {
             serie = <div className="form-group">
                 <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
@@ -1053,7 +1053,7 @@ export default class EditarEscola extends Component {
                     <option value="9º ano">9º ano</option>
                 </select>
             </div>
-        }
+        }*/
 
         if (this.state.nivel === "EJA") {
             serie = <div className="form-group">
