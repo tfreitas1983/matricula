@@ -11,6 +11,8 @@ import {cepMask} from './cepMask'
 import {telMask, celMask} from './telMask'
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
+import Select from "react-validation/build/select"
+
 import CheckButton from "react-validation/build/button"
 
 const required = value => {
@@ -1123,7 +1125,9 @@ export default class Pedido extends Component {
         })
     }
 
-    calculaPontos () {
+    calculaPontos (e) {
+
+        e.preventDefault()
 
         let arrayPontos = []
         if (this.state.deficiente === "Sim") {
@@ -1180,6 +1184,11 @@ export default class Pedido extends Component {
 
         if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-03-31') {
             alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar à vaga")
+            return false
+        }
+
+        if (this.state.turno === "") {
+            alert ("Turno deve ser preenchido")
             return false
         }
 
@@ -1411,6 +1420,12 @@ export default class Pedido extends Component {
         let superdotacao = null
         let outra = null
 
+        let protocolo = null
+
+        if (this.state.protocolo !== "") {
+            protocolo = <h3> Anote seu protocolo: {this.state.protocolo} </h3>
+        }
+
         if (distancias && lat && long) {
             mostrarOpcoes = <div className="escola-list">
                 {distancias.map((item, index) => {
@@ -1609,13 +1624,13 @@ export default class Pedido extends Component {
             <div className="col-md-6">
                 <div className="form-group">
                     <label>Turno</label>
-                    <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
+                    <Select className="form-control" id="turno" name="turno" validations={[required]} value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Escolha o turno---</option>
                         <option value="Manhã"> Manhã</option>
                         <option value="Tarde"> Tarde</option>
                         <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
-                    </select>
+                    </Select>
                 </div> 
             </div>
         </div>
@@ -1636,13 +1651,13 @@ export default class Pedido extends Component {
             <div className="col-md-6">
                 <div className="form-group">
                     <label>Turno</label>
-                    <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
+                    <Select className="form-control" id="turno" name="turno" value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Escolha o turno---</option>
                         <option value="Manhã"> Manhã</option>
                         <option value="Tarde"> Tarde</option>
                         <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
-                    </select>
+                    </Select>
                 </div> 
             </div>
         </div>
@@ -1668,13 +1683,13 @@ export default class Pedido extends Component {
             <div className="col-md-6">
                 <div className="form-group">
                     <label>Turno</label>
-                    <select className="form-control" id="serie" name="serie" value={this.state.turno} onChange={this.handlerTurno}  > 
+                    <Select className="form-control" id="turno" name="turno" validations={[required]} value={this.state.turno} onChange={this.handlerTurno}  > 
                         <option value="" disabled>---Escolha o turno---</option>
                         <option value="Manhã"> Manhã</option>
                         <option value="Tarde"> Tarde</option>
                         <option value="Noite"> Noite</option>                  
                         <option value="Intermediário"> Intermediário</option>                  
-                    </select>
+                    </Select>
                 </div> 
             </div>
         </div>
@@ -1688,7 +1703,7 @@ export default class Pedido extends Component {
                 <div className="col-md-6" style={{paddingLeft: 30}}>
                     <div className="form-check col-md-6">
                         <label className="form-check-label" style={{paddingLeft: 30+'%',width: 'max-content', fontSize: 18+'px'}}>
-                            <input className="form-check-input" type="checkbox" hidden  onChange={this.handlerEja}  /> Candidato(a) EJA
+                            <input className="form-check-input" type="checkbox" hidden  onChange={this.handlerEja}  /> Aluno(a) EJA
                         </label>
                     </div>
                 </div>
@@ -1729,18 +1744,18 @@ export default class Pedido extends Component {
 
         if (this.state.deficiente === 'Sim') {
             deficiencias = <div style={{marginBottom:2+'%'}}>
-                <label className="col-sm-6" style={{padding: 0}}>Marque as deficiências que o(a) candidato(a) possui: </label>
+                <label className="col-sm-6" style={{padding: 0}}>Marque as deficiências que o(a) aluno(a) possui: </label>
                 <div className="form-group row">                    
                     <div className="col-sm-12">
                         <div className="form-check">
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerAuditiva} /> Deficiência auditiva e surdez
                             </label>
-                            <label className="form-check-label"  style={{marginRight: 3+'%'}}>
+                            {/*<label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerFala} /> Fala
-                            </label>
+                            </label>*/}
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
-                                <input className="form-check-input" type="checkbox" onChange={this.handlerMental} /> Deficiência mental
+                                <input className="form-check-input" type="checkbox" onChange={this.handlerMental} /> Deficiência intelectual
                             </label>
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerMotora} /> Deficiência física
@@ -1783,7 +1798,7 @@ export default class Pedido extends Component {
         return (
             <div>
                 <h1>
-                    Cadastro de candidatos(as)
+                    Cadastro de alunos(as)
                 </h1>
                 <div>
                     { this.state ? (
@@ -1884,13 +1899,13 @@ export default class Pedido extends Component {
 
                             <hr />
 
-                            <label>DADOS DO(A) CANDIDATO(A)</label>
+                            <label>DADOS DO(A) ALUNO(A)</label>
                             
                             <Input 
                             type="text" 
                             className="form-control" 
                             onChange={this.handlerNome} 
-                            placeholder="Nome do(a) candidato(a)" 
+                            placeholder="Nome do(a) aluno(a)" 
                             ref={this.inputNome}                                            
                             validations={[required]} />
                                                     
@@ -2008,7 +2023,7 @@ export default class Pedido extends Component {
                                     <div className="form-group row">                                
                                         <div className="form-check" style={{marginLeft:1+'%'}}>
                                             <label className="form-check-label">
-                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Candidato(a) no Creas/Conselho Tutelar
+                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Aluno(a) no Creas/Conselho Tutelar
                                             </label>
                                         </div>
                                     </div>
@@ -2051,6 +2066,9 @@ export default class Pedido extends Component {
                             {deficiencias} 
 
                             <label>Buscar Escola</label>
+                            <strong>
+                                “A escolha da turma e turno dar-se-á de forma preferencial, podendo haver mudança de acordo com a organização estrutural de cada Escola.”
+                            </strong>
                             <div>
                                 {serie}  
                             </div> 
@@ -2064,6 +2082,7 @@ export default class Pedido extends Component {
                             {mostrarOpcoes}
 
                             <h3> {this.state.message}  </h3>
+                            {protocolo}
 
                             <div className="row">
                                 <div className="col-md-12" style={{display:'flex', justifyContent: 'space-evenly', margin: 5+'%'}}>

@@ -1177,6 +1177,11 @@ export default class AdicionarAluno extends Component {
 
     salvarAluno() {
 
+        if (this.state.turno === "") {
+            alert ("Turno deve ser preenchido")
+            return false
+        }
+
         
         if (this.state.dtnascimento >= '2021-04-01') {
             alert("Data de nascimento incorreta")   
@@ -1393,15 +1398,15 @@ export default class AdicionarAluno extends Component {
                         </div>
                     }
             
-                    if (item.fala === true) {
+                   /* if (item.fala === true) {
                         fala = <div>
                             <label> Fala</label>
                         </div>
-                    }
+                    } */
             
                     if (item.mental === true) {
                         mental = <div>
-                            <label>Deficiência mental</label>
+                            <label>Deficiência intelectual</label>
                         </div>
                     }
             
@@ -1745,18 +1750,18 @@ export default class AdicionarAluno extends Component {
 
         if (this.state.deficiente === 'Sim') {
             deficiencias = <div>
-                <label className="col-md-12">Marque as deficiências que o(a) candidato(a) possui: </label>
+                <label className="col-md-12">Marque as deficiências que o(a) aluno(a) possui: </label>
                 <div className="form-group row">                    
                     <div className="col-sm-12">
                         <div className="form-check">
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerAuditiva} /> Deficiência auditiva e surdez
                             </label>
-                            <label className="form-check-label"  style={{marginRight: 3+'%'}}>
+                            {/*<label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerFala} /> Fala
-                            </label>
+                            </label> */}
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
-                                <input className="form-check-input" type="checkbox" onChange={this.handlerMental} /> Deficiência mental
+                                <input className="form-check-input" type="checkbox" onChange={this.handlerMental} /> Deficiência intelectual
                             </label>
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" onChange={this.handlerMotora} /> Deficiência física
@@ -1980,7 +1985,7 @@ export default class AdicionarAluno extends Component {
                             <Card>
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                        DADOS DO(A) CANDIDATO(A)
+                                        DADOS DO(A) ALUNO(A)
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1">
@@ -1993,7 +1998,7 @@ export default class AdicionarAluno extends Component {
                                                         type="text" 
                                                         className="form-control" 
                                                         onChange={this.handlerNome} 
-                                                        placeholder="Nome do(a) candidato(a)"                                             
+                                                        placeholder="Nome do(a) aluno(a)"                                             
                                                         validations={[required]} />
                                                     </div>
                                                 </div>
@@ -2127,7 +2132,7 @@ export default class AdicionarAluno extends Component {
                                                     <div className="form-group row">                                
                                                         <div className="form-check" style={{marginLeft:3+'%'}}>
                                                             <label className="form-check-label">
-                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Candidato(a) no Creas/Conselho Tutelar
+                                                                <input className="form-check-input" type="checkbox" onChange={this.handlerVulneravel} style={{marginRight: 1+'%'}} /> Aluno(a) no Creas/Conselho Tutelar
                                                             </label>
                                                         </div>
                                                     </div>

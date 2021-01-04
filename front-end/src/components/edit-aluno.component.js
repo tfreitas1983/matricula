@@ -1737,15 +1737,15 @@ export default class EditarAluno extends Component {
                 </div>
             }
     
-            if (item.fala === true) {
+            /* if (item.fala === true) {
                 fala = <div>
                     <label>Fala</label>
                 </div>
-            }
+            } */
     
             if (item.mental === true) {
                 mental = <div>
-                    <label> Deficiência mental</label>
+                    <label> Deficiência intelectual</label>
                 </div>
             }
     
@@ -2094,18 +2094,18 @@ export default class EditarAluno extends Component {
 
         if (current.deficiente === 'Sim') {
             deficiencias = <div>
-                <label className="col-md-12">Marque as deficiências que o(a) candidato(a) possui: </label>
+                <label className="col-md-12">Marque as deficiências que o(a) aluno(a) possui: </label>
                 <div className="form-group row">                    
                     <div className="col-sm-12">
                         <div className="form-check">
                             <label className="form-check-label"  style={{marginRight: 2+'%'}}>
                                 <input className="form-check-input" type="checkbox" checked={current.auditiva === true} onChange={this.handlerAuditiva} /> Deficiência auditiva e surdez
                             </label>
-                            <label className="form-check-label"  style={{marginRight: 3+'%'}}>
+                            {/*<label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" checked={current.fala === true} onChange={this.handlerFala}  /> Fala
-                            </label>
+                            </label> */}
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
-                                <input className="form-check-input" type="checkbox" checked={current.mental === true} onChange={this.handlerMental}  /> Deficiência mental
+                                <input className="form-check-input" type="checkbox" checked={current.mental === true} onChange={this.handlerMental}  /> Deficiência intelectual
                             </label>
                             <label className="form-check-label"  style={{marginRight: 3+'%'}}>
                                 <input className="form-check-input" type="checkbox" checked={current.motora === true} onChange={this.handlerMotora}  /> Deficiência física
@@ -2410,7 +2410,7 @@ export default class EditarAluno extends Component {
                             <Card>
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                        DADOS DO(A) CANDIDATO(A)
+                                        DADOS DO(A) ALUNO(A)
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1">
@@ -2589,7 +2589,7 @@ export default class EditarAluno extends Component {
                                                     <div className="form-group row">                                
                                                         <div className="form-check" >
                                                             <label className="form-check-label">
-                                                                <input className="form-check-input" type="checkbox" checked={current.vulneravel === true} onChange={this.handlerVulneravel}  /> Candidato(a) no Creas/Conselho Tutelar
+                                                                <input className="form-check-input" type="checkbox" checked={current.vulneravel === true} onChange={this.handlerVulneravel}  /> Alno(a) no Creas/Conselho Tutelar
                                                             </label>
                                                         </div>
                                                     </div>
