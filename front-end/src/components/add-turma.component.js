@@ -269,6 +269,10 @@ export default class AdicionarTurma extends Component {
     }
    
     salvarTurma() {
+        if (this.state.escola === "") {
+            alert("Uma escola deve ser selecionada")
+        }
+        
         var data = null
         if (this.state.deficiente === "Não") {
             data = {

@@ -430,6 +430,11 @@ export default class Turma extends Component {
         if (this.state.current.nivel === "Educação Infantil") {
             this.removeEja()
         }
+
+        if (this.state.current.escola === "") {
+            alert("Uma escola deve ser selecionada")
+        }
+        
         var data = null
         if (this.state.current.deficiente === "Não") {
             

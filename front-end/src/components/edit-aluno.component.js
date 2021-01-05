@@ -903,13 +903,13 @@ export default class EditarAluno extends Component {
              if (this.state.current.dtnascimento >= '2016-04-01' && this.state.current.dtnascimento <= '2017-03-31') {
                  this.setState({
                      nivel: "Pré escola",
-                     serie: "Pré IV"
+                     serie: "Pré Escola IV"
                  })
              }
              if (this.state.current.dtnascimento >= '2015-04-01' && this.state.current.dtnascimento <= '2016-03-31') {
                  this.setState({
                      nivel: "Pré escola",
-                     serie: "Pré V"                
+                     serie: "Pré Escola V"                
                  })
              }
      
@@ -1005,6 +1005,7 @@ export default class EditarAluno extends Component {
         let filtroTurma = null
         let turmaEscola = null
         let todasEscolas = null
+        let filtroEscolas = []
 
         if (this.state.current.dtnascimento <= '2020-03-31' && this.state.current.deficiente === "Não") {
            
@@ -1031,9 +1032,15 @@ export default class EditarAluno extends Component {
                     })
                 }) 
 
-                todasEscolas = turmaEscola.filter((escola) => {
+                filtroEscolas = turmaEscola.filter((escola) => {
                     return escola.length > 0
-                }) 
+                })  
+
+                todasEscolas = filtroEscolas.filter(function (a) {
+                    return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                }, Object.create(null)) 
+
+                
             } else {         
                 todas = this.state.current.escolas
 
@@ -1047,9 +1054,15 @@ export default class EditarAluno extends Component {
                     })
                 }) 
                 
-                todasEscolas = turmaEscola.filter((escola) => {
+                filtroEscolas = turmaEscola.filter((escola) => {
                     return escola.length > 0
-                })            
+                })  
+
+                todasEscolas = filtroEscolas.filter(function (a) {
+                    return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                }, Object.create(null)) 
+                
+                
             }           
 
             this.setState({
@@ -1058,6 +1071,10 @@ export default class EditarAluno extends Component {
                 filtroTurma: filtroTurma,
                 todasEscolas: todasEscolas
             })
+
+            if (todasEscolas.length === 0) {
+                alert ("Nenhuma escola encontrada nos parâmetros selecionados")
+            }
                        
             for (let i = 0; i < todasEscolas.length; i++) {
                 let R = 6371
@@ -1890,8 +1907,8 @@ export default class EditarAluno extends Component {
                         <label>Ano de escolaridade</label>
                         <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
                             <option value="" disabled> --- Selecione ---</option>
-                            <option value="Pré IV">Pré IV</option>
-                            <option value="Pré V">Pré V</option>                   
+                            <option value="Pré Escola IV">Pré Escola IV</option>
+                            <option value="Pré Escola V">Pré Escola V</option>                   
                         </select>
                     </div> 
                 </div>

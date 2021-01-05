@@ -297,7 +297,8 @@ export default class Pedido extends Component {
 
     handlerTurno(e) {
         this.setState({
-            turno: e.target.value
+            turno: e.target.value,
+            distancias: ""
         })
     }
 
@@ -721,6 +722,7 @@ export default class Pedido extends Component {
         let filtroTurma = null
         let turmaEscola = null
         let todasEscolas = null
+        let filtroEscolas = []
 
         if (this.state.dtnascimento <= '2020-03-31' && this.state.deficiente === "Não") {
            
@@ -747,9 +749,16 @@ export default class Pedido extends Component {
                     })
                 }) 
 
-                todasEscolas = turmaEscola.filter((escola) => {
+                filtroEscolas = turmaEscola.filter((escola) => {
                     return escola.length > 0
-                }) 
+                })  
+
+                todasEscolas = filtroEscolas.filter(function (a) {
+                    return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                }, Object.create(null)) 
+
+                
+
             } else {         
                 todas = this.state.escolas
 
@@ -763,17 +772,28 @@ export default class Pedido extends Component {
                     })
                 }) 
                 
-                todasEscolas = turmaEscola.filter((escola) => {
+                filtroEscolas = turmaEscola.filter((escola) => {
                     return escola.length > 0
-                })            
-            }           
+                })  
 
+                todasEscolas = filtroEscolas.filter(function (a) {
+                    return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                }, Object.create(null))  
+               
+            }      
+            
+           
             this.setState({
                 turmaEscola: turmaEscola,
                 todas: todas,
                 filtroTurma: filtroTurma,
                 todasEscolas: todasEscolas
             })
+
+            if (todasEscolas.length === 0) {
+                alert ("Nenhuma escola encontrada nos parâmetros selecionados")
+            }
+
                        
             for (let i = 0; i < todasEscolas.length; i++) {
                 let R = 6371
@@ -798,6 +818,7 @@ export default class Pedido extends Component {
                     distancias: distancias
                 })      
             }   
+
                     
         } 
 

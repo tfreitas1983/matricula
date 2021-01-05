@@ -104,8 +104,8 @@ export default class Turma extends Component {
                             </tr>
                             {turmas.map((turma, index) => (
                                 <tr key={index} className="bordalinha">
-                                    <td style={{width: 20+'%'}}>{turma.escola}</td>
-                                    <td style={{width: 10+'%'}}>{turma.descricao}</td>                                
+                                    <td style={{width: 20+'%'}}>{turma.escola.toUpperCase()}</td>
+                                    <td style={{width: 10+'%'}}>{turma.descricao.toUpperCase()}</td>                                
                                     <td style={{width: 10+'%'}}>{turma.qtd}</td>
                                     <td style={{width: 15+'%'}}>{turma.nivel}</td>  
                                     <td style={{width: 10+'%'}}>{turma.serie}</td>
