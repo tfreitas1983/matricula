@@ -230,7 +230,12 @@ export default class Pedido extends Component {
 
     handlerDtNascimento(e) {
         this.setState({
-            dtnascimento: e.target.value
+            dtnascimento: e.target.value,
+            escola: "",
+            turno: "",
+            serie: "",
+            escola: "",
+            distancias: ""
         })
     }
 
@@ -279,7 +284,8 @@ export default class Pedido extends Component {
 
     handlerSerie(e) {
         this.setState({
-            serie: e.target.value
+            serie: e.target.value,
+            distancias: ""
         })
     }
 
@@ -616,13 +622,13 @@ export default class Pedido extends Component {
         if (this.state.dtnascimento >= '2016-04-01' && this.state.dtnascimento <= '2017-03-31') {
             this.setState({
                 nivel: "Pré escola",
-                serie: "Pré IV"
+                serie: "Pré Escola IV"
             })
         }
         if (this.state.dtnascimento >= '2015-04-01' && this.state.dtnascimento <= '2016-03-31') {
             this.setState({
                 nivel: "Pré escola",
-                serie: "Pré V"                
+                serie: "Pré Escola V"                
             })
         }
 
@@ -1587,8 +1593,8 @@ export default class Pedido extends Component {
                         <label>Ano de escolaridade</label>
                         <select className="form-control" id="serie" name="serie" value={this.state.serie} onChange={this.handlerSerie}  > 
                             <option value="" disabled> -- Selecione --- </option>
-                            <option value="Pré IV">Pré Escola IV</option>
-                            <option value="Pré V">Pré Escola V</option>                        
+                            <option value="Pré Escola IV">Pré Escola IV</option>
+                            <option value="Pré Escola V">Pré Escola V</option>                        
                         </select>
                     </div> 
                 </div>
