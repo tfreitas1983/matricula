@@ -1583,6 +1583,23 @@ export default class Pedido extends Component {
                     message: "Cadastro completado com sucesso!"
                 })
                 console.log(response.data)
+
+                store.addNotification({
+                    title: "Pronto!",
+                    message: "Cadastro completado com sucesso!",
+                    type: "success",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  });
+                
+                  return false
+
                 },
                 error => {
                   const resMessage =
