@@ -130,12 +130,10 @@
   background-color: initial;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 34px;
-  color: #f0f0f0;
+  color: #000;
 }
 
-.matricula input:focus{
-  border: 0;
-}
+
 
 .matricula, .acompanha button{
   margin-top: 5px;

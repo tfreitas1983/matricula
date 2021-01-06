@@ -25,6 +25,12 @@ import criancas from  "../images/criancas.jpeg"
 import doc1 from  "../images/doc1.jpeg"
 import doc2 from  "../images/doc2.jpeg"
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
+import './animate.compat.css';
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -129,60 +135,72 @@ export default class Login extends Component {
     }
 
     acompanha() {
-        if (this.state.protocolo === "" || this.state.protocolo === null ) {
-            alert ("Digite o protocolo")
-            return false
+        if (this.state.protocolo === "" || this.state.protocolo === null || (this.state.protocolo.toString()).length < 16  ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "Digite o número de protocolo corretamente!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
         }
-
-      /*  if (this.state.dtnascimento === "" || this.state.dtnascimento === null ) {
-            alert ("Digite a data de nascimento do(a) candidato(a)")
-            return false
-        }
-
-        if (this.state.dtnascimento >= '2021-04-01') {
-            alert("Data de nascimento incorreta")   
-            return false         
-        } 
-
-        if (this.state.dtnascimento < '1900-01-01') {
-            alert("Data de nascimento incorreta")
-            return false            
-        } 
-
-        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-03-31') {
-            alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar à vaga")
-            return false
-        }
-
-        /* if (this.state.alunos.length > 0) {
-            if (this.state.alunos.indexOf({dtnascimento: this.state.dtnascimento, cpf: this.state.cpf}) > -1) {
-                this.props.history.push(`/painel-solicitacao/${this.state.alunos.id}`)
-                window.location.reload()                    
-            } else {
-                return alert("Solicitação não encontrada")
-            }         
-        } else {
-            alert("Não existem alunos")
-        } */
 
         if (this.state.alunos.length > 0) {
+            
             this.state.alunos.map((aluno) => {
                 if (this.state.protocolo && this.state.protocolo === aluno.protocolo) {
                     this.props.history.push(`/painel-solicitacao/${aluno.id}`)
-                    window.location.reload()                
-                }                                                    
-            })        
+                    window.location.reload()  
+                    return false              
+                }              
+                
+            })
+            
+
+            if (this.state.alunos.indexOf({protocolo: this.state.protocolo}) === -1) {
+                store.addNotification({
+                    title: "Alerta!",
+                    message: "Protocolo não encontrado!",
+                    type: "warning",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  });    
+                
+                  return false
+            }
         } else {
-            alert("Não existem alunos")
+            store.addNotification({
+                title: "Alerta!",
+                message: "Não existem alunos!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
         }
 
-       /* if (this.state.alunos.length > 0) {
-            if (this.state.alunos.indexOf({protocolo: this.state.protocolo}) > -1) {
-                return false                    
-            } else {
-                return alert("Protocolo não encontrado!")
-            } 
-        }*/
+         
     }
 
     hide() {

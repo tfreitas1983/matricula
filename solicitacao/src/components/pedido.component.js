@@ -1580,6 +1580,7 @@ export default class Pedido extends Component {
                     status: response.data.status,
                     situacao: response.data.situacao,
                     submitted: true,
+                    distancias: "",
                     message: "Cadastro completado com sucesso!"
                 })
                 console.log(response.data)
