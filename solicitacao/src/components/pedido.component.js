@@ -13,6 +13,12 @@ import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import Select from "react-validation/build/select"
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
+import './animate.compat.css';
+
 import CheckButton from "react-validation/build/button"
 
 const required = value => {
@@ -714,6 +720,24 @@ export default class Pedido extends Component {
 
     buscarEscolas() {
 
+        if (this.state.cep === "" || this.state.cep.length < 9 ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "O CEP não foi preenchido corretamente",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
+        }
+
         
 
         let todasDistancias = []
@@ -1194,6 +1218,60 @@ export default class Pedido extends Component {
     salvarAluno(e) {
 
         e.preventDefault();
+
+        if (this.state.cpf_responsavel === "" || this.state.cpf_responsavel.length < 14 ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "O CPF do responsável não foi preenchido corretamente",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
+        }
+
+        if (this.state.responsavel === "" || this.state.responsavel.length < 6 ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "O nome do responsável não foi preenchido corretamente",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+
+              return false
+        }
+
+        if (this.state.cep === "" || this.state.cep.length < 9 ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "O CEP não foi preenchido corretamente",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
+        }
 
         this.setState({
         msg: "",
@@ -2110,7 +2188,7 @@ export default class Pedido extends Component {
 
                             <h3> {this.state.message}  </h3>
                             {protocolo}
-
+                            <ReactNotification />  
                             <div className="row">
                                 <div className="col-md-12" style={{display:'flex', justifyContent: 'space-evenly', margin: 5+'%'}}>
                                     <button type="submit" className="btn btn-success" onClick={this.salvarAluno} style={{width: 25+'%'}}>
@@ -2124,7 +2202,7 @@ export default class Pedido extends Component {
                                     </button>
                                 </div>  
                                 
-                                                                                                   
+                                                                                          
                             </div>
                         </div>
                         <CheckButton style={{display: "none"}} ref={c => {this.checkBtn = c;}} />
