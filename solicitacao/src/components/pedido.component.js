@@ -537,7 +537,22 @@ export default class Pedido extends Component {
             }
 
             if ( this.state.ceps.length === 0) {
-                alert("CEP não localizado")
+                
+                store.addNotification({
+                    title: "Alerta!",
+                    message: "CEP não localizado!",
+                    type: "warning",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  });
+                
+                  return false
             }
              
         }
@@ -571,7 +586,22 @@ export default class Pedido extends Component {
             }          
             
             if (buscaCEP.data.results.length === 0) {
-                alert("Latitude e logitude não encontradas pelo CEP indicado!")
+                
+                store.addNotification({
+                    title: "Alerta!",
+                    message: "Latitude e logitude não encontradas pelo CEP indicado!",
+                    type: "warning",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  });
+                
+                  return false
             }
             
             this.pegaEnderecoCep()
@@ -582,7 +612,21 @@ export default class Pedido extends Component {
         const key = 'AIzaSyBwNxO-LGt8HpwtFbMAhBEaUxeew-FCz1o' 
 
         if (this.state.cidade === "" || this.state.logradouro === "") {
-            alert ("O endereço e cidade devem ser preenchidos")
+            store.addNotification({
+                title: "Alerta!",
+                message: "O endereço e cidade devem ser preenchidos!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false 
         }
         
         if (this.state.cep === "" && this.state.logradouro !== "" && this.state.cidade !== "") {
@@ -815,7 +859,22 @@ export default class Pedido extends Component {
             })
 
             if (todasEscolas.length === 0) {
-                alert ("Nenhuma escola encontrada nos parâmetros selecionados")
+                
+                store.addNotification({
+                    title: "Alerta!",
+                    message: "Nenhuma escola encontrada nos parâmetros selecionados!",
+                    type: "warning",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  });
+                
+                  return false 
             }
 
                        
@@ -1153,19 +1212,61 @@ export default class Pedido extends Component {
         }
 
         if (this.state.dtnascimento >= '2021-04-01') {
-            alert("Data de nascimento incorreta")   
-            return false         
+             
+            store.addNotification({
+                title: "Alerta!",
+                message: "Data de nascimento incorreta",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false 
+                 
         } 
 
         if (this.state.dtnascimento < '1900-01-01') {
-            alert("Data de nascimento incorreta")
-            return false            
+            store.addNotification({
+                title: "Alerta!",
+                message: "Data de nascimento incorreta!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false           
         } 
 
 
-        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-05-31') {
-            alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar")
-            return false
+        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-12-31') {
+          
+            store.addNotification({
+                title: "Alerta!",
+                message: "Somente crianças com 1 completo até 31/03/2021 podem se candidatar",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
         }
     }
 
@@ -1273,28 +1374,100 @@ export default class Pedido extends Component {
               return false
         }
 
+        if (this.state.nome === "" || this.state.nome.length < 6 ) {
+            store.addNotification({
+                title: "Alerta!",
+                message: "O nome do(a) aluno(a) não foi preenchido corretamente",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
+        }
+
         this.setState({
         msg: "",
         loading: true
         })
 
         if (this.state.dtnascimento >= '2021-04-01') {
-            alert("Data de nascimento incorreta")   
-            return false         
-        } 
-        if (this.state.dtnascimento < '1920-01-01') {
-            alert("Data de nascimento incorreta")
-            return false            
+            store.addNotification({
+                title: "Alerta!",
+                message: "Data de nascimento incorreta!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false        
         } 
 
-        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-03-31') {
-            alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar à vaga")
-            return false
+        if (this.state.dtnascimento < '1920-01-01') {
+            store.addNotification({
+                title: "Alerta!",
+                message: "Data de nascimento incorreta!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false              
+        } 
+
+        if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-12-31') {
+            
+            store.addNotification({
+                title: "Alerta!",
+                message: "Somente crianças com 1 completo até 31/03/2021 podem se solicittar vaga!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false  
         }
 
         if (this.state.turno === "") {
-            alert ("Turno deve ser preenchido")
-            return false
+            store.addNotification({
+                title: "Alerta!",
+                message: "Data de nascimento incorreta!",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false 
         }
 
         this.form.validateAll()
