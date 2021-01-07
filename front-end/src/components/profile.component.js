@@ -9,7 +9,8 @@ export default class Profile extends Component {
       currentUser: AuthService.getCurrentUser(),      
       showAdminBoard: false,
       showModeratorBoard: false, 
-      showUserBoard: false    
+      showUserBoard: false    ,
+      perfil: ""
     }
   }
 
@@ -23,6 +24,26 @@ export default class Profile extends Component {
         showUserBoard: this.state.currentUser.roles.includes("ROLE_USER")
         })
     }
+
+    if (this.state.showUserBoard && ! this.state.showModeratorBoard && !this.state.showAdminBoard) {
+      this.setState({
+        perfil: "Secretaria Escolar"
+      })
+    }
+
+    if (this.state.showModeratorBoard && !this.state.showAdminBoard) {
+      this.setState({
+        perfil: "SEMED"
+      })
+    }
+
+    if (!this.state.showModeratorBoard && this.state.showAdminBoard) {
+      this.setState({
+        perfil: "Diretor Escolar"
+      })
+    }
+
+
 }
 
   render() {
