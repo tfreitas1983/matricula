@@ -663,7 +663,7 @@ export default class Turma extends Component {
             serie = <div className="form-group">
                 <label>Ano de escolaridade</label>
                 <select className="form-control" id="serie" name="serie" value={current.serie} onChange={this.handlerSerie}  > 
-                    <option value="" disabled>  --- Selecione --- </option>
+                    <option value="" >  --- Selecione --- </option>
                     <option value="1º ano">1º ano</option>
                     <option value="2º ano">2º ano</option>
                     <option value="3º ano">3º ano</option>

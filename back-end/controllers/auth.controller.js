@@ -113,3 +113,24 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+exports.change = (req, res) => {
+  const username = {username: req.body.username}
+  const password = {password: bcrypt.hashSync(req.body.password, 8) }
+
+  User.findOneAndUpdate( username, password, {new: true})
+  .then(data => {
+    if (!data) {
+        res.status(404).send({
+            message: `Não foi possível encontrar e/ou alterar o usuário ${username}. `
+        })
+    } else res.send({
+            message: "Senha alterada com sucesso!"                
+        })    
+  })
+  .catch(err => {
+      res.status(500).send({
+          message: "Erro ao alterar a senha do usuário " + username
+      })
+  })
+}

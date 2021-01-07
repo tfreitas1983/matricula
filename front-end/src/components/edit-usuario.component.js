@@ -12,6 +12,7 @@ export default class EditarUsuario extends Component {
         this.buscarUsuario = this.buscarUsuario.bind(this)
         this.handlerEmail = this.handlerEmail.bind(this) 
         this.handlerEscola = this.handlerEscola.bind(this) 
+        this.handlerSenha = this.handlerSenha.bind(this) 
         
         this.pegaEscolas = this.pegaEscolas.bind(this)
         this.salvarUsuario = this.salvarUsuario.bind(this)
@@ -27,6 +28,7 @@ export default class EditarUsuario extends Component {
                 email: "",
                 escola: "",
                 situacao: "",
+                password: "",
                 submitted: false
             }
         }
@@ -98,6 +100,16 @@ export default class EditarUsuario extends Component {
         }))
     }
 
+    handlerSenha(e) {
+        const senha = e.target.value
+        this.setState(prevState => ({
+            current: {
+                ...prevState.current,
+                password: senha
+            }
+        }))
+    }
+
     salvarUsuario() {
         var data = {
             id: this.state.current.id,
@@ -119,6 +131,30 @@ export default class EditarUsuario extends Component {
         .catch(e => {
             console.log(e)
         })
+
+        AuthService.changePassword(this.state.current.username, this.state.current.password).then(
+            () => {
+              this.props.history.push("/usuarios");
+              window.location.reload();
+            },
+            
+              alert("Senha alterada com sucesso!")
+            
+            ,
+            error => {
+              const resMessage =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+      
+              this.setState({
+                loading: false,
+                message: resMessage
+              });
+            }
+          );
     }
 
 
@@ -204,6 +240,18 @@ export default class EditarUsuario extends Component {
                                         name="situacao" />                            
                                     </div>
                                 </div>                           
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <label htmlFor="password"> Nova Senha </label>
+                                        <input 
+                                        type="password" 
+                                        className="form-control" 
+                                        id="password"                                          
+                                        value={current.password}
+                                        onChange={this.handlerSenha}
+                                        name="password" />
+                                </div>
                             </div>
                             <div style={{display:'flex', justifyContent: 'space-around'}}>             
                                 <Link to={"/usuarios"} className="btn btn-info">

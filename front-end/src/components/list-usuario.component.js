@@ -76,7 +76,7 @@ export default class Usuario extends Component {
                                     <td style={{width: 20+'%'}}>{usuario.username}</td>                                
                                     <td style={{width: 15+'%'}}>{usuario.escola}</td>  
                                     <td style={{width: 30+'%'}}>{usuario.email}</td>                                    
-                                    <td style={{width: 25+'%'}}>{usuario.roles.map((role, idx) =>  <div key={idx}>{role}</div>)}</td>                                    
+                                    <td style={{width: 25+'%'}}>{usuario.roles.map((role, idx) =>  <div key={idx}>{role.name}</div>)}</td>                                    
                                     <td style={{width: 10+'%'}}>
                                         <IconContext.Provider value={{ size: "2em", className: "global-class-name" }}>
                                             {<Link to={`/usuarios/visualizar/${usuario._id}`} id="view" style={{textDecoration: 'none'}}> <FaEye /> </Link>}

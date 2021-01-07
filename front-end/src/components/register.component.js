@@ -145,10 +145,20 @@ export default class Register extends Component {
     })
   }
 
-  onChangePerfil(e) {
-    this.setState({
+  async onChangePerfil(e) {
+    await this.setState({
       perfil: e.target.value
     })    
+
+    if (this.state.perfil !== "user") {
+      this.setState({
+        roles: ["user", this.state.perfil]
+      })
+    } else {
+      this.setState({
+        roles: ["user"]
+      })
+    }
   }
 
   handleRegister(e) {
