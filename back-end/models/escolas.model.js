@@ -1,8 +1,10 @@
 module.exports = mongoose => {
     const mongoosePaginate = require('mongoose-paginate')
-   // const AutoIncrement = require('mongoose-sequence')(mongoose)
+   // const AutoIncrement = require('mongoose-sequence')(mongoose)   
+   var uniqueValidator = require('mongoose-unique-validator')
     var schemaEscolas = mongoose.Schema ({        
         descricao: String, 
+        idescola: {type: Number, required: true, unique: true},
         cnpj: String,
         inep: String,
         logradouro: String,
@@ -49,7 +51,7 @@ module.exports = mongoose => {
         return object
     })
 
-    
+    schemaEscolas.plugin(uniqueValidator)
     schemaEscolas.plugin(mongoosePaginate)
    // schemaChamados.plugin(AutoIncrement, {num:'numchamado_seq', inc_field: 'numchamado'})
     const Escolas = mongoose.model("escolas", schemaEscolas)    

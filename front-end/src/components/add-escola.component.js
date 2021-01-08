@@ -6,7 +6,7 @@ import CepDataService from "../services/cep.service"
 import AuthService from "../services/auth.service"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-//import * as moment from 'moment'
+import * as moment from 'moment'
 import {cnpjMask} from './cnpjMask'
 import {cepMask} from './cepMask'
 import {telMask} from './telMask'
@@ -79,6 +79,7 @@ export default class AdicionarEscola extends Component {
             showAdminBoard: false,
             showModeratorBoard: false,
             descricao: "",
+            idescola: "",
             cnpj: "",
             inep: "",
             logradouro: "",
@@ -98,6 +99,7 @@ export default class AdicionarEscola extends Component {
             turma: "",
             ejaTurma: false,
             qtd: "",
+            identificador: "",
             matriculas: 0,
             serie: "",
             turno: "",
@@ -180,9 +182,13 @@ export default class AdicionarEscola extends Component {
         }
     }
 
-    handlerDescricao(e) {
-        this.setState({
+    async handlerDescricao(e) {
+        await this.setState({
             descricao: e.target.value = ("" + e.target.value).toUpperCase()
+        })
+
+        await this.setState({
+            idescola: this.state.descricao.substring(0,3)+moment().valueOf(),
         })
     }
 
@@ -367,9 +373,13 @@ export default class AdicionarEscola extends Component {
         })
     }
 
-    handlerTurma(e) {
-        this.setState({
+    async handlerTurma(e) {
+        await this.setState({
             turma: e.target.value = ("" + e.target.value).toUpperCase()
+        })
+
+        await this.setState({
+            identificador: this.state.turma.substring(0,3)+moment().valueOf(),
         })
     }
 
@@ -527,6 +537,7 @@ export default class AdicionarEscola extends Component {
         if (this.state.deficiente === "Não") {
             data = {
                 descricao: this.state.descricao,
+                idescola: this.state.idescola,
                 cnpj: this.state.cnpj,
                 inep: this.state.inep,
                 username: this.state.currentUser.username,
@@ -565,6 +576,7 @@ export default class AdicionarEscola extends Component {
 
             data = {
                 descricao: this.state.descricao,
+                idescola: this.state.idescola,
                 cnpj: this.state.cnpj,
                 inep: this.state.inep,
                 username: this.state.currentUser.username,
@@ -606,6 +618,7 @@ export default class AdicionarEscola extends Component {
             this.setState({
                 id: response.data.id,
                 descricao: response.data.descricao,
+                idescola: response.data.idescola,
                 cnpj: response.data.cnpj,
                 inep: response.data.inep,
                 username: response.data.username,
@@ -648,6 +661,22 @@ export default class AdicionarEscola extends Component {
     }
 
     async salvarTurma() {
+
+        if (this.state.turma === "") {
+            alert("Deve ser cadastrada uma descrição para a turma")
+            return false
+        }
+
+        if (this.state.qnt === "") {
+            alert("Deve ser cadastrada uma quantidade para a turma")
+            return false
+        }
+
+        if (this.state.serie === "") {
+            alert("Deve ser cadastrada um ano de escolaridade para a turma")
+            return false
+        }
+
         var data = null
         if (this.state.deficiente === "Não") {
             data = {
@@ -655,6 +684,7 @@ export default class AdicionarEscola extends Component {
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
                 qtd: this.state.qtd,
+                identificador: this.state.identificador,
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
@@ -683,6 +713,7 @@ export default class AdicionarEscola extends Component {
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
                 qtd: this.state.qtd,
+                identificador: this.state.identificador,
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
@@ -714,6 +745,7 @@ export default class AdicionarEscola extends Component {
                 username: response.data.username,
                 nivel: response.data.nivel,
                 qtd: response.data.qtd,
+                identificador: response.data.identificador,
                 matriculas: response.data.matriculas,
                 serie: response.data.serie,
                 turno: response.data.turno,

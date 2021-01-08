@@ -4,6 +4,7 @@ import EscolaDataService from "../services/escola.service"
 //import CursoDataService from "../services/curso.service"
 import AuthService from "../services/auth.service"
 import {Link} from 'react-router-dom'
+import * as moment from 'moment'
 
 export default class AdicionarTurma extends Component {
     constructor(props) {
@@ -46,6 +47,7 @@ export default class AdicionarTurma extends Component {
            // selectedCurso: "",
             descricao: "",
             nivel: "",
+            identificador: "",
             qnt: "",
             matriculas: 0,
             serie: "",
@@ -132,9 +134,13 @@ export default class AdicionarTurma extends Component {
     }
 
 
-    handlerDescricao(e) {
-        this.setState({
+    async handlerDescricao(e) {
+        await this.setState({
             descricao: e.target.value = ("" + e.target.value).toUpperCase()
+        })
+
+        await this.setState({
+            identificador: this.state.descricao.substring(0,3)+moment().valueOf(),
         })
     }
 
@@ -271,6 +277,22 @@ export default class AdicionarTurma extends Component {
     salvarTurma() {
         if (this.state.escola === "") {
             alert("Uma escola deve ser selecionada")
+            return false
+        }
+
+        if (this.state.descricao === "") {
+            alert("Deve ser cadastrada uma descrição para a turma")
+            return false
+        }
+
+        if (this.state.qnt === "") {
+            alert("Deve ser cadastrada uma quantidade para a turma")
+            return false
+        }
+
+        if (this.state.serie === "") {
+            alert("Deve ser cadastrada um ano de escolaridade para a turma")
+            return false
         }
         
         var data = null
@@ -279,6 +301,7 @@ export default class AdicionarTurma extends Component {
                 descricao: this.state.descricao,
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
+                identificador: this.state.identificador,
                 qtd: this.state.qtd,
                 matriculas: 0,
                 serie: this.state.serie,
@@ -308,6 +331,7 @@ export default class AdicionarTurma extends Component {
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
                 qtd: this.state.qtd,
+                identificador: this.state.identificador,
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
@@ -341,6 +365,7 @@ export default class AdicionarTurma extends Component {
                 username: response.data.username,
                 nivel: response.data.nivel,
                 qtd: response.data.qtd,
+                identificador: response.data.identificador,
                 matriculas: response.data.matriculas,
                 serie: response.data.serie,
                 turno: response.data.turno,

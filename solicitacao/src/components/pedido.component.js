@@ -126,6 +126,7 @@ export default class Pedido extends Component {
             nome: "",
             dtnascimento: "",
             sexo: "",
+            identificador: "",
             rg: "",
             cpf: "",
             nis: "",
@@ -320,9 +321,14 @@ export default class Pedido extends Component {
         })
     }
 
-    handlerCPFResponsavel(e) {
-        this.setState({
+    async handlerCPFResponsavel(e) {
+        await this.setState({
             cpf_responsavel: cpfMask(e.target.value)
+            
+        })
+
+        await this.setState({
+            identificador: this.state.cpf_responsavel.substring(0,3)+moment().valueOf(),
         })
     }
 
@@ -1316,7 +1322,7 @@ export default class Pedido extends Component {
         
     }
 
-    salvarAluno(e) {
+    async salvarAluno(e) {
 
         e.preventDefault();
 
@@ -1475,11 +1481,12 @@ export default class Pedido extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             
 
-            var data = {
+            let data = {
                 //username: this.state.currentUser.username,
                 nome: this.state.nome,
                 dtnascimento: moment(this.state.dtnascimento,'DD-MM-YYYY'),
                 sexo: this.state.sexo,
+                identificador: this.state.identificador,
                 rg: this.state.rg,
                 cpf: this.state.cpf,
                 nis: this.state.nis,
@@ -1526,14 +1533,16 @@ export default class Pedido extends Component {
                 status: "Em análise"
             }
 
-            AlunoDataService.cadastrar(data)
+            await AlunoDataService.cadastrar(data)
             .then(response => {
+               
                 this.setState({
                     id: response.data.id,
                     //username: response.data.username,
                     nome: response.data.nome,
                     dtnascimento: response.data.dtnascimento,
                     sexo: response.data.sexo,
+                    identificador: response.data.identificador,
                     rg: response.data.rg,
                     cpf: response.data.cpf,
                     nis: response.data.nis,
@@ -1584,6 +1593,7 @@ export default class Pedido extends Component {
                     message: "Cadastro completado com sucesso!"
                 })
                 console.log(response.data)
+               
 
                 store.addNotification({
                     title: "Pronto!",
@@ -1597,9 +1607,7 @@ export default class Pedido extends Component {
                       duration: 5000,
                       onScreen: true
                     }
-                  });
-                
-                  return false
+                  });            
 
                 },
                 error => {
@@ -1618,7 +1626,9 @@ export default class Pedido extends Component {
                 .catch(e => {
                     console.log(e)
                 }) 
-                
+
+                               
+                                 
                 this.timerID = setTimeout(      
                     () => this.email(),1000
                 )

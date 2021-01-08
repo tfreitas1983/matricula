@@ -11,6 +11,7 @@ import axios from 'axios'
 import {cnpjMask} from './cnpjMask'
 import {cepMask} from './cepMask'
 import {telMask} from './telMask'
+import * as moment from 'moment'
 
 export default class EditarEscola extends Component {
     constructor(props){ 
@@ -83,6 +84,7 @@ export default class EditarEscola extends Component {
             ceps: [],   
             turmas: [],             
             turma: "",
+            identificador: "",
             qtd: "",
             matriculas: 0,
             serie: "",
@@ -94,6 +96,7 @@ export default class EditarEscola extends Component {
             current: {
                 id: null,
                 descricao: "",
+                idescola: "",
                 cnpj: "",
                 inep: "",
                 logradouro: "",
@@ -156,6 +159,7 @@ export default class EditarEscola extends Component {
                 current: {
                     id: response.data.id,
                     descricao: response.data.descricao.toUpperCase(), 
+                    idescola: response.data.idescola,
                     cnpj: response.data.cnpj,
                     inep: response.data.inep,                       
                     logradouro: response.data.logradouro.toUpperCase(),
@@ -695,6 +699,7 @@ export default class EditarEscola extends Component {
 
             data = {
                 descricao: this.state.current.descricao,
+                idescola: this.state.current.idescola,
                 cnpj: this.state.current.cnpj,
                 inep: this.state.current.inep,
                 username: this.state.currentUser.username,
@@ -732,6 +737,7 @@ export default class EditarEscola extends Component {
         } else {
             data = {
                 descricao: this.state.current.descricao,                
+                idescola: this.state.current.idescola, 
                 cnpj: this.state.current.cnpj,
                 inep: this.state.current.inep,
                 username: this.state.currentUser.username,
@@ -788,6 +794,7 @@ export default class EditarEscola extends Component {
                 descricao: this.state.turma,
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
+                identificador: this.state.identificador,
                 qtd: this.state.qtd,
                 matriculas: 0,
                 serie: this.state.serie,
@@ -817,6 +824,7 @@ export default class EditarEscola extends Component {
                 username: this.state.currentUser.username,
                 nivel: this.state.nivel,
                 qtd: this.state.qtd,
+                identificador: this.state.identificador,
                 matriculas: 0,
                 serie: this.state.serie,
                 turno: this.state.turno,
@@ -848,6 +856,7 @@ export default class EditarEscola extends Component {
                 username: response.data.username,
                 nivel: response.data.nivel,
                 qtd: response.data.qtd,
+                identificador: response.data.identificador,
                 matriculas: response.data.matriculas,
                 serie: response.data.serie,
                 turno: response.data.turno,

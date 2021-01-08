@@ -105,6 +105,7 @@ export default class AdicionarAluno extends Component {
             ceps: [],
             nome: "",
             dtnascimento: "",
+            identificador: "",
             sexo: "",
             rg: "",
             cpf: "",
@@ -307,9 +308,13 @@ export default class AdicionarAluno extends Component {
         })
     }
 
-    handlerCPFResponsavel(e) {
-        this.setState({
+    async handlerCPFResponsavel(e) {
+        await this.setState({
             cpf_responsavel: cpfMask(e.target.value = ("" + e.target.value).replace(/\D/g, ''))
+        })
+
+        await this.setState({
+            identificador: this.state.cpf_responsavel.substring(0,3)+moment().valueOf(),
         })
     }
 
@@ -1222,6 +1227,7 @@ export default class AdicionarAluno extends Component {
             nome: this.state.nome,
             dtnascimento: moment(this.state.dtnascimento,'YYYY-MM-DD'),
             sexo: this.state.sexo,
+            identificador: this.state.identificador,
             rg: this.state.rg,
             cpf: this.state.cpf,
             nis: this.state.nis,
@@ -1276,6 +1282,7 @@ export default class AdicionarAluno extends Component {
                 nome: response.data.nome,
                 dtnascimento: response.data.dtnascimento,
                 sexo: response.data.sexo,
+                identificador: response.data.identificador,
                 rg: response.data.rg,
                 cpf: response.data.cpf,
                 nis: response.data.nis,

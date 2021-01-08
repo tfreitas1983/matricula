@@ -11,6 +11,7 @@ exports.cadastrar = (req, res) => {
 
     const escola = new Escola ({
         descricao: req.body.descricao,
+        idescola: req.body.idescola,
         cnpj: req.body.cnpj,
         inep: req.body.inep,
         logradouro: req.body.logradouro,

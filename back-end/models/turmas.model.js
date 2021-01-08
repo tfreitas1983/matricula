@@ -1,7 +1,9 @@
 module.exports = mongoose => {
     const mongoosePaginate = require('mongoose-paginate')
+    var uniqueValidator = require('mongoose-unique-validator')
     var schemaTurmas = mongoose.Schema ({        
-        descricao: String, 
+        descricao: String,         
+        identificador: {type: Number, required: true, unique: true},
         nivel: String,
         qtd: Number,
         matriculas: Number,
@@ -36,7 +38,7 @@ module.exports = mongoose => {
         return object
     })
 
-    
+    schemaTurmas.plugin(uniqueValidator)
     schemaTurmas.plugin(mongoosePaginate)
     const Turmas = mongoose.model("turmas", schemaTurmas)    
     return Turmas

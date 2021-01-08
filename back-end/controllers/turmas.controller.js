@@ -11,6 +11,7 @@ exports.cadastrar = (req, res) => {
     const turma = new Turma ({
         descricao: req.body.descricao,
         nivel: req.body.nivel,
+        identificador: req.body.identificador,
         qtd: req.body.qtd,
         matriculas: req.body.matriculas,
         serie: req.body.serie,

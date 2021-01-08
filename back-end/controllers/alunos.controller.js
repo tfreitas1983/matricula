@@ -14,6 +14,7 @@ exports.cadastrar = (req, res) => {
         nome: req.body.nome,
         dtnascimento: req.body.dtnascimento,
         sexo: req.body.sexo,
+        identificador: req.body.identificador,
         rg: req.body.rg,
         cpf: req.body.cpf,
         nis: req.body.nis,
