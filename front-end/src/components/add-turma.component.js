@@ -48,7 +48,7 @@ export default class AdicionarTurma extends Component {
             descricao: "",
             nivel: "",
             identificador: "",
-            qnt: "",
+            qtd: "",
             matriculas: 0,
             serie: "",
             turno: "",
@@ -140,7 +140,7 @@ export default class AdicionarTurma extends Component {
         })
 
         await this.setState({
-            identificador: this.state.descricao.substring(0,3)+moment().valueOf(),
+            identificador: moment().valueOf(),
         })
     }
 
@@ -285,7 +285,7 @@ export default class AdicionarTurma extends Component {
             return false
         }
 
-        if (this.state.qnt === "") {
+        if (this.state.qtd === "") {
             alert("Deve ser cadastrada uma quantidade para a turma")
             return false
         }

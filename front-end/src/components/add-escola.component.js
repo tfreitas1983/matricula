@@ -188,7 +188,7 @@ export default class AdicionarEscola extends Component {
         })
 
         await this.setState({
-            idescola: this.state.descricao.substring(0,3)+moment().valueOf(),
+            idescola: moment().valueOf(),
         })
     }
 
@@ -379,7 +379,7 @@ export default class AdicionarEscola extends Component {
         })
 
         await this.setState({
-            identificador: this.state.turma.substring(0,3)+moment().valueOf(),
+            identificador: moment().valueOf(),
         })
     }
 
@@ -683,13 +683,13 @@ export default class AdicionarEscola extends Component {
             return false
         }
 
-        if (this.state.qnt === "") {
+        if (this.state.qtd === "") {
             alert("Deve ser cadastrada uma quantidade para a turma")
             return false
         }
 
         if (this.state.serie === "") {
-            alert("Deve ser cadastrada um ano de escolaridade para a turma")
+            alert("Deve ser cadastrado um ano de escolaridade para a turma")
             return false
         }
 
