@@ -696,7 +696,17 @@ export default class EditarEscola extends Component {
     }
 
     salvarEscola() {
-        
+
+        if (this.state.current.logradouro === "" || this.state.current.cidade === "" ) {
+            alert("Deve ser cadastrado endereço e cidade para a unidade escolar")
+            return false
+        }
+
+        if (this.state.current.lat === "" || this.state.current.long === "") {
+            alert("As latitudes e longitudes devem ser preenchidas para a unidade escolar")
+            return false
+        }
+
         var data = null
 
         if (this.state.current.deficiente === "Não") {
