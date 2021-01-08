@@ -1419,8 +1419,7 @@ export default class Pedido extends Component {
         }
 
         if (this.state.lat === "" || this.state.long === "") {
-            //alert(`A sua localização não foi obtida para encontrar a lista de unidades escolares perto de você.
-//Digite o CEP válido, ou digite o endereço e cidade corretamente e clique no botão localização. `)
+            
             store.addNotification({
                 title: "Alerta!",
                 message: `A sua localização não foi obtida para encontrar a lista de unidades escolares perto de você.
@@ -1437,6 +1436,24 @@ export default class Pedido extends Component {
             });
 
             return false
+        }
+
+        if (this.state.escola === "") {
+            store.addNotification({
+                title: "Alerta!",
+                message: "Uma unidade escolar deve ser escolhida.",
+                type: "warning",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
+            
+              return false
         }
 
         this.setState({

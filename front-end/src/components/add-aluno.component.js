@@ -1211,7 +1211,10 @@ export default class AdicionarAluno extends Component {
             return false
         }
 
-        
+        if (this.state.escola === "") {
+            alert ("Uma unidade escolar deve ser escolhida")
+            return false
+        }
         if (this.state.dtnascimento >= '2021-04-01') {
             alert("Data de nascimento incorreta")   
             return false         
