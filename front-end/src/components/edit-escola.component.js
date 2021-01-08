@@ -648,12 +648,15 @@ export default class EditarEscola extends Component {
                 })
                 
                 this.timerID = setTimeout(() => {
-                    this.setState({                
-                        lat: buscaCEP.data.results[0].geometry.location.lat,
-                        long: buscaCEP.data.results[0].geometry.location.lng          
-                    })
-                    this.inputLatitude.current.value = this.state.lat
-                    this.inputLongitude.current.value = this.state.long
+
+                    this.setState(prevState => ({
+                        current: {
+                            ...prevState.current,
+                            lat: buscaCEP.data.results[0].geometry.location.lat,
+                            long: buscaCEP.data.results[0].geometry.location.lng          
+                    }}))
+                    this.inputLatitude.current.value = this.state.current.lat
+                    this.inputLongitude.current.value = this.state.current.long
                 }, 2000)  
             }
 

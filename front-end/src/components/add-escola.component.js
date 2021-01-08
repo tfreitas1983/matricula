@@ -533,6 +533,12 @@ export default class AdicionarEscola extends Component {
     }
 
     salvarEscola() {
+
+        if (this.state.descricao === "") {
+            alert("Deve ser cadastrada uma descrição para a unidade escolar")
+            return false
+        }
+
         var data = null
         if (this.state.deficiente === "Não") {
             data = {

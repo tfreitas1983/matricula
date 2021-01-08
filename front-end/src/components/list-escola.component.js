@@ -102,15 +102,19 @@ export default class Escola extends Component {
                         <tbody>
                             <tr className="bordalinha">                                
                                 <th>Descrição</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
                                 <th>Telefone</th>
                                 <th>E-mail</th>
                                 <th>Ações</th>                            
                             </tr>
                             {escolas.map((escola, index) => (
                                 <tr key={index} className="bordalinha">
-                                    <td style={{width: 40+'%'}}>{escola.descricao}</td>                                
-                                    <td style={{width: 15+'%'}}>{escola.telefone}</td>
-                                    <td style={{width: 35+'%'}}>{escola.email}</td>                                    
+                                    <td style={{width: 30+'%'}}>{escola.descricao}</td>                                
+                                    <td style={{width: 10+'%'}}>{escola.lat}</td> 
+                                    <td style={{width: 10+'%'}}>{escola.long}</td> 
+                                    <td style={{width: 10+'%'}}>{escola.telefone}</td>
+                                    <td style={{width: 30+'%'}}>{escola.email}</td>                                    
                                     <td style={{width: 10+'%'}}>
                                         <IconContext.Provider value={{ size: "2em", className: "global-class-name" }}>
                                             {<Link to={`/escolas/visualizar/${escola.id}`} id="view" style={{textDecoration: 'none'}}> <FaEye /> </Link>}
