@@ -1659,6 +1659,7 @@ export default class Pedido extends Component {
             nome: "",
             dtnascimento: "",
             sexo: "",
+            identificador: "",
             rg: "",
             cpf: "",
             nis: "",
