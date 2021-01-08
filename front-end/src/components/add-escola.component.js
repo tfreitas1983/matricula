@@ -539,6 +539,16 @@ export default class AdicionarEscola extends Component {
             return false
         }
 
+        if (this.state.logradouro === "" || this.state.cidade === "" ) {
+            alert("Deve ser cadastrado endereço e cidade para a unidade escolar")
+            return false
+        }
+
+        if (this.state.lat === "" || this.state.long === "") {
+            alert("As latitudes e longitudes devem ser preenchidas para a unidade escolar")
+            return false
+        }
+
         var data = null
         if (this.state.deficiente === "Não") {
             data = {

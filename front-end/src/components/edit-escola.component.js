@@ -696,6 +696,7 @@ export default class EditarEscola extends Component {
     }
 
     salvarEscola() {
+        
         var data = null
 
         if (this.state.current.deficiente === "Não") {
