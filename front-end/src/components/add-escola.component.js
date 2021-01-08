@@ -234,8 +234,8 @@ export default class AdicionarEscola extends Component {
         })
     }
 
-    handlerCEP(e) {
-        this.setState({
+    async handlerCEP(e) {
+        await this.setState({
             cep: cepMask(e.target.value)
         })
     }
@@ -448,7 +448,7 @@ export default class AdicionarEscola extends Component {
     }
 
     async pegaLocalizacaoCEP() {
-        const key = 'AIzaSyDy5XJj1VaYQlZZFQtWsCrji4i4bSz1uXU'        
+        const key = 'AIzaSyBwNxO-LGt8HpwtFbMAhBEaUxeew-FCz1o'        
 
         if (this.state.cep !== "" || this.state.cep !== undefined ) {
             const buscaCEP = await axios
@@ -484,7 +484,7 @@ export default class AdicionarEscola extends Component {
     }
 
     async pegaLocalizacao() {
-        const key = 'AIzaSyDy5XJj1VaYQlZZFQtWsCrji4i4bSz1uXU' 
+        const key = 'AIzaSyBwNxO-LGt8HpwtFbMAhBEaUxeew-FCz1o' 
         
         if (this.state.cep === "" && this.state.logradouro !== ""  && this.state.cidade !== "" ) {
             const buscaEndereco = await axios
@@ -505,6 +505,12 @@ export default class AdicionarEscola extends Component {
                     this.inputLongitude.current.value = this.state.long
                 }, 2000)   
             } 
+
+            this.timerID = setTimeout(() => {
+                if (this.state.lat !== "" && this.state.long !== "") {
+                    alert ("Localização obtida com sucesso!")
+                }
+            }, 2500) 
         }        
     }
 
@@ -545,7 +551,9 @@ export default class AdicionarEscola extends Component {
         }
 
         if (this.state.lat === "" || this.state.long === "") {
-            alert("As latitudes e longitudes devem ser preenchidas para a unidade escolar")
+            alert(`As latitudes e longitudes devem ser preenchidas para a unidade escolar.
+Digite o CEP e pressione a tecla TAB,
+ou digite o endereço e cidade corretamente e clique no botão localização. `)
             return false
         }
 

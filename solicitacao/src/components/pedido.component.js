@@ -595,14 +595,15 @@ export default class Pedido extends Component {
                 
                 store.addNotification({
                     title: "Alerta!",
-                    message: "Latitude e logitude não encontradas pelo CEP indicado!",
-                    type: "warning",
+                    message: `A sua localização não foi encontrada pelo CEP indicado!
+                    Digite o endereço e a cidade corretamente e clique no botão localização.`,
+                    type: "danger",
                     insert: "top",
                     container: "top-center",
                     animationIn: ["animate__animated", "animate__fadeIn"],
                     animationOut: ["animate__animated", "animate__fadeOut"],
                     dismiss: {
-                      duration: 5000,
+                      duration: 15000,
                       onScreen: true
                     }
                   });
@@ -652,6 +653,25 @@ export default class Pedido extends Component {
                     })                   
                 }, 2000)   
             }  
+
+            this.timerID = setTimeout(() => {
+                if (this.state.lat !== "" && this.state.long !== "") {
+                    store.addNotification({
+                        title: "Pronto!",
+                        message: `A sua localização foi obtida com sucesso!`,
+                        type: "success",
+                        insert: "top",
+                        container: "top-center",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                        duration: 5000,
+                        onScreen: true
+                        }
+                    });
+                }
+            }, 2000)
+            
         }        
     }
 
@@ -1396,6 +1416,27 @@ export default class Pedido extends Component {
               });
             
               return false
+        }
+
+        if (this.state.lat === "" || this.state.long === "") {
+            //alert(`A sua localização não foi obtida para encontrar a lista de unidades escolares perto de você.
+//Digite o CEP válido, ou digite o endereço e cidade corretamente e clique no botão localização. `)
+            store.addNotification({
+                title: "Alerta!",
+                message: `A sua localização não foi obtida para encontrar a lista de unidades escolares perto de você.
+                Digite o CEP válido, ou digite o endereço e cidade corretamente e clique no botão localização.`,
+                type: "danger",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                duration: 15000,
+                onScreen: true
+                }
+            });
+
+            return false
         }
 
         this.setState({

@@ -597,6 +597,12 @@ export default class AdicionarAluno extends Component {
                     this.inputLongitude.current.value = this.state.long
                 }, 2000)    
             }
+
+            this.timerID = setTimeout(() => {
+                if (this.state.lat !== "" && this.state.long !== "") {
+                    alert ("Localização obtida com sucesso!")
+                }
+            }, 2500)  
         }        
     }
 
@@ -1217,6 +1223,13 @@ export default class AdicionarAluno extends Component {
 
         if (this.state.dtnascimento >= '2020-04-01' && this.state.dtnascimento <= '2021-03-31') {
             alert("Somente crianças com 1 completo até 31/03/2021 podem se candidatar à vaga")
+            return false
+        }
+
+        if (this.state.lat === "" || this.state.long === "") {
+            alert(`As latitudes e longitudes devem ser preenchidas para localizar as unidades escolares mais próximas.
+Digite o CEP e pressione a tecla TAB,
+ou digite o endereço e cidade corretamente e clique no botão localização. `)
             return false
         }
 
