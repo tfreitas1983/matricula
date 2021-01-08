@@ -98,7 +98,7 @@ exports.email = (req, res) => {
                 email: 'matriculabelfordroxo@gmail.com',
                 name: 'Matrícula Belford Roxo'
             },
-            subject: `Sua solicitação de pré-matrícula nº ${data.protocolo}`,
+            subject: `Confirmação de pré-matrícula`,
             text: `O chamado.`,
             html: `A sua solicitação para o(a) canditato(a) <strong>${data.nome}</strong> foi registrado sob protocolo <strong>${data.protocolo}</strong>.
             <p> Parabéns! Você efetuou a solicitação de pré-matrícula na rede municipal de Belford Roxo.
