@@ -565,7 +565,7 @@ export default class Pedido extends Component {
     }
 
     async pegaLocalizacaoCEP() {
-        const key = 'AIzaSyBwNxO-LGt8HpwtFbMAhBEaUxeew-FCz1o'        
+        const key = 'cript-google-key'        
 
         if (this.state.cep !== "" || this.state.cep !== undefined ) {
             const buscaCEP = await axios
@@ -616,7 +616,7 @@ export default class Pedido extends Component {
     }
 
     async pegaLocalizacao() {
-        const key = 'AIzaSyBwNxO-LGt8HpwtFbMAhBEaUxeew-FCz1o' 
+        const key = 'cript-google-key' 
 
         if (this.state.cidade === "" || this.state.logradouro === "") {
             store.addNotification({
