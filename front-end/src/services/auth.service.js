@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://matricula.ddns.net:8085/api/auth/";
+const API_URL = "http://10.1.1.26.net:8085/api/auth/";
 
 class AuthService {
   login(username, password) {
