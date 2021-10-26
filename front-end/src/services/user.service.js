@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://matricula.ddns.net:8085/api/test/';
+const API_URL = 'http://10.1.1.26:8085/api/test/';
 
 class UserService {
   getPublicContent() {
